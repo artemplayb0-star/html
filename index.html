@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Бизнес-Английский: PRO</title>
+    <style>
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        h1 { color: #2563eb; text-align: center; font-size: 1.5rem; margin: 10px 0 20px 0; }
+        .container { width: 100%; max-width: 500px; display: flex; flex-direction: column; flex-grow: 1; }
+        
+        .btn {
+            width: 100%; background-color: #2563eb; color: white; border: none;
+            padding: 18px; font-size: 1.1rem; font-weight: 600; border-radius: 15px;
+            cursor: pointer; transition: background-color 0.2s; margin-bottom: 12px;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+        }
+        .btn:active { transform: translateY(2px); box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2); }
+        .btn-check { background-color: #10b981; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2); }
+        .btn-secondary { background-color: #6b7280; box-shadow: 0 4px 6px rgba(107, 114, 128, 0.2); margin-top: 15px;}
+        .btn-warning { background-color: #f59e0b; box-shadow: 0 4px 6px rgba(245, 158, 11, 0.2); }
+        .btn-danger { background-color: #ef4444; box-shadow: 0 4px 6px rgba(239, 68, 68, 0.2); }
+        
+        .card {
+            background: white; width: 100%; flex-grow: 1; max-height: 60vh;
+            padding: 25px 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center; margin-bottom: 20px; min-height: 300px;
+            overflow-y: auto; position: relative; transition: background-color 0.3s ease;
+        }
+        .phrase-main { font-size: 1.3rem; font-weight: 700; margin-bottom: 5px; color: #2563eb; line-height: 1.4; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;}
+        .phrase-sub { font-size: 1.1rem; font-weight: 600; color: #374151; line-height: 1.4; margin-top: 10px;}
+        .transcription { font-size: 1rem; color: #6b7280; font-style: italic; font-weight: normal; margin-bottom: 10px; }
+        
+        .speak-btn {
+            background: none; border: none; font-size: 1.5rem; cursor: pointer; padding: 5px;
+            border-radius: 50%; transition: background 0.2s;
+        }
+        .speak-btn:active { background: #e5e7eb; }
+
+        input[type="text"] {
+            width: 100%; padding: 16px; font-size: 16px; 
+            border: 2px solid #d1d5db; border-radius: 12px; outline: none;
+            text-align: center; margin-bottom: 15px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+        input[type="text"]:focus { border-color: #2563eb; }
+        input.correct { border-color: #10b981 !important; background-color: #d1fae5; color: #065f46; }
+        input.wrong { border-color: #ef4444 !important; background-color: #fee2e2; color: #991b1b; }
+        
+        .progress-bar { width: 100%; background-color: #e5e7eb; border-radius: 10px; margin-bottom: 15px; overflow: hidden; height: 12px; }
+        .progress-fill { height: 100%; background-color: #10b981; width: 0%; transition: width 0.3s ease; }
+        .block-info { font-size: 1rem; color: #4b5563; margin-bottom: 15px; text-align: center; font-weight: 600; }
+        .status-text { margin-bottom: 20px; font-size: 1rem; font-weight: 600; min-height: 48px; display: flex; align-items: center; justify-content: center; flex-direction: column;}
+        
+        .hidden { display: none !important; }
+        .flashcard-interactive { cursor: pointer; border: 2px dashed #d1d5db; }
+        .tap-hint { font-size: 0.9rem; color: #9ca3af; margin-top: 15px; font-weight: normal;}
+        .swipe-hint { font-size: 0.85rem; color: #6b7280; margin-top: 5px; font-weight: bold; }
+        
+        .flex-row { display: flex; gap: 10px; width: 100%; margin-bottom: 12px; }
+    </style>
+</head>
+<body>
+
+<div class="container" id="app">
+    <h1 id="app-title">📚 Главное меню</h1>
+    
+    <!-- ШАГ 1: ВЫБОР СЛОВАРЯ -->
+    <div id="dict-menu-screen">
+        <p class="block-info">Выберите набор для изучения:</p>
+        
+        <div class="flex-row">
+            <button class="btn btn-warning" id="btn-dict-hard" style="margin-bottom: 0;">🔥 Трудные слова (0)</button>
+            <button class="btn btn-danger" id="btn-clear-hard" style="margin-bottom: 0; padding: 18px 15px; width: auto;" title="Очистить трудые слова">🗑️</button>
+        </div>
+
+        <button class="btn btn-check" id="btn-dict-phrases">Словосочетания (23 шт)</button>
+        <button class="btn" id="btn-dict-big">Большой словарь (86 шт)</button>
+        <button class="btn" id="btn-dict-small">Малый словарь (35 шт)</button>
+    </div>
+
+    <!-- ШАГ 2: ВЫБОР РЕЖИМА -->
+    <div id="mode-menu-screen" class="hidden">
+        <p class="block-info" id="selected-dict-info"></p>
+        <button class="btn" id="btn-mode-en-ru">📇 Карточки: Англ ➔ Рус</button>
+        <button class="btn" id="btn-mode-ru-en">📇 Карточки: Рус ➔ Англ</button>
+        <button class="btn btn-check" id="btn-mode-cram">✍️ Режим Зубрёжки</button>
+        <button class="btn btn-secondary" id="btn-back-to-dicts">🔙 Назад к выбору словаря</button>
+    </div>
+
+    <!-- РЕЖИМ КАРТОЧЕК -->
+    <div id="flashcard-screen" class="hidden">
+        <div class="block-info" id="fc-counter"></div>
+        <div class="card flashcard-interactive" id="fc-card">
+            <div class="phrase-main">
+                <span id="fc-front"></span>
+                <button class="speak-btn hidden" id="fc-speak-front">🔊</button>
+            </div>
+            <div class="transcription hidden" id="fc-tr-front"></div>
+            
+            <div class="phrase-sub hidden" id="fc-back-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <span id="fc-back"></span>
+                    <button class="speak-btn hidden" id="fc-speak-back">🔊</button>
+                </div>
+                <div class="transcription hidden" id="fc-tr-back"></div>
+            </div>
+            
+            <div class="tap-hint" id="fc-hint">Нажмите на карточку, чтобы перевернуть</div>
+            <div class="swipe-hint" id="fc-swipe-hint">Свайп влево ⬅️ Не помню | Помню ➡️ Свайп вправо</div>
+        </div>
+        <button class="btn btn-secondary" id="btn-back-fc">🔙 Вернуться к режимам</button>
+    </div>
+
+    <!-- РЕЖИМ ЗУБРЁЖКИ -->
+    <div id="cramming-screen" class="hidden">
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="block-info" id="blockInfo"></div>
+
+        <div class="card" id="cardArea">
+            <div class="phrase-sub" id="ruText" style="margin-bottom: 15px;"></div>
+            <div class="phrase-main hidden">
+                <span id="enText"></span>
+                <button class="speak-btn" id="cram-speak-btn">🔊</button>
+            </div>
+            <div class="transcription hidden" id="cram-tr"></div>
+            
+            <input type="text" id="answerInput" class="hidden" placeholder="Введите перевод..." autocomplete="off" autocorrect="off" autocapitalize="none">
+            
+            <div class="status-text" id="statusText"></div>
+            
+            <div style="width: 100%; display: flex; flex-direction: column; gap: 10px;">
+                <button class="btn hidden" id="nextReviewBtn">Понятно, дальше</button>
+                <button class="btn btn-check hidden" id="checkBtn">Проверить</button>
+                <button class="btn hidden" id="nextTestBtn">Дальше</button>
+            </div>
+        </div>
+        <button class="btn btn-secondary" id="btn-back-cram">🔙 Вернуться к режимам</button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // --- ДАННЫЕ СЛОВАРЕЙ ---
+        const dictPhrases = [
+            { en: "an interconnected system of departments and units", ru: "взаимосвязанная система отделов и подразделений", tr: "[ˌɪntəkəˈnektɪd] [dɪˈpɑːtmənts]" },
+            { en: "work-related activities of subordinates", ru: "производственная деятельность подчиненных", tr: "[səˈbɔːdɪnɪts]" },
+            { en: "duties and responsibilities", ru: "служебные функции и обязанности", tr: "[rɪˌspɒnsɪˈbɪlɪtiz]" },
+            { en: "to establish communication networks", ru: "установить систему информационных потоков", tr: "[ɪsˈtæblɪʃ]" },
+            { en: "time horizon", ru: "временной диапазон", tr: "[həˈraɪzn]" },
+            { en: "to departmentalize or cluster jobs", ru: "разбить организацию на функциональные отделы", tr: "[ˌdiːpɑːtˈmentəlaɪz]" },
+            { en: "disturbance handler", ru: "ответственный за разрешение конфликтов", tr: "[dɪsˈtɜːbəns]" },
+            { en: "to contribute toward the accomplishment of organizational objectives", ru: "способствовать достижению целей организации", tr: "[kənˈtrɪbjuːt] [əˈkʌmplɪʃmənt]" },
+            { en: "to energize somebody to put forth productive effort", ru: "стимулировать кого-либо в целях повышения усилий", tr: "[ˈenədʒaɪz]" },
+            { en: "job enrichment", ru: "расширение обязанностей и полномочий", tr: "[ɪnˈrɪtʃmənt]" },
+            { en: "to set clear objectives and devise strategies", ru: "поставить четкие цели и разработать стратегию", tr: "[dɪˈvaɪz ˈstrætədʒiz]" },
+            { en: "to implement work schedules", ru: "соблюдать рабочие графики", tr: "[ˈɪmplɪmənt ˈʃedjuːlz]" },
+            { en: "high levels of inter-personal skills", ru: "высокий уровень межличностных отношений", tr: "[ˌɪntəˈpɜːsənl]" },
+            { en: "span of control", ru: "норма управляемости", tr: "" },
+            { en: "to be enthusiastic about exerting effort to attain organizational objectives", ru: "быть мотивированным проявить усилия", tr: "[ɪnˌθjuːziˈæstɪk] [ɪɡˈzɜːtɪŋ]" },
+            { en: "to compare actual with planned performance", ru: "сравнить фактические результаты с запланированными", tr: "[kəmˈpeə ˈæktʃuəl]" },
+            { en: "to coordinate effort", ru: "координировать усилия", tr: "[kəʊˈɔːdɪneɪt]" },
+            { en: "a set of operational rules and regulations", ru: "свод операционных правил и нормативов", tr: "[ˌɒpəˈreɪʃənl] [ˌreɡjuˈleɪʃnz]" },
+            { en: "to inspire action", ru: "вдохновлять на трудовые достижения", tr: "[ɪnˈspaɪə]" },
+            { en: "to analyze competitive opportunities and threats", ru: "анализировать конкурентные возможности и риски", tr: "[ˈænəlaɪz kəmˈpetɪtɪv] [θrets]" },
+            { en: "to deviate from standards", ru: "отклониться от стандартов", tr: "[ˈdiːvieɪt]" },
+            { en: "to be aware of environmental conditions", ru: "ознакомиться с условиями бизнес-среды", tr: "[əˈweə] [ɪnˌvaɪrənˈmentl]" },
+            { en: "to forecast future conditions", ru: "прогнозировать будущие условия", tr: "[ˈfɔːkɑːst]" }
+        ];
+
+        // Восстановленный полный словарь на 86 слов
+        const dictWordsBig = [
+            { en: "activities", ru: "действия, деятельность" },
+            { en: "peripheral activities", ru: "второстепенная деятельность", tr: "[pəˈrɪfərəl]" },
+            { en: "attain", ru: "достигать, добиваться", tr: "[əˈteɪn]" },
+            { en: "attain objectives/goals", ru: "достигать целей" },
+            { en: "authority", ru: "власть; полномочие", tr: "[ɔːˈθɒrɪti]" },
+            { en: "authorize", ru: "уполномочивать; разрешать", tr: "[ˈɔːθəraɪz]" },
+            { en: "command", ru: "команда, приказ", tr: "[kəˈmɑːnd]" },
+            { en: "chain of command", ru: "цепь инстанций, порядок субординации" },
+            { en: "communicate", ru: "общаться; сообщать", tr: "[kəˈmjuːnɪkeɪt]" },
+            { en: "communication", ru: "система информационных потоков в организации" },
+            { en: "communications channels", ru: "каналы передачи информации" },
+            { en: "consistency", ru: "системность, последовательность", tr: "[kənˈsɪstənsi]" },
+            { en: "consistent", ru: "сообразный, согласующийся" },
+            { en: "contingency", ru: "непредвиденное обстоятельство", tr: "[kənˈtɪndʒənsi]" },
+            { en: "control", ru: "управлять, контролировать" },
+            { en: "Controlling", ru: "совокупность анализа и контроля" },
+            { en: "span of control", ru: "норма управляемости" },
+            { en: "delegate", ru: "делегировать полномочия, поручать" },
+            { en: "delegation", ru: "делегирование; передача полномочий" },
+            { en: "department", ru: "отдел" },
+            { en: "line department", ru: "линейный отдел" },
+            { en: "operate a department", ru: "управлять отделом" },
+            { en: "departmentalize", ru: "разбивать организацию на функциональные отделы", tr: "[ˌdiːpɑːtˈmentəlaɪz]" },
+            { en: "deviate", ru: "отклоняться", tr: "[ˈdiːvieɪt]" },
+            { en: "deviation", ru: "отклонение" },
+            { en: "deviation from budgeted results", ru: "отклонение от запланированных результатов" },
+            { en: "direct", ru: "направлять, руководить" },
+            { en: "Directing", ru: "руководство" },
+            { en: "disturbance", ru: "беспорядки, конфликты, нарушения", tr: "[dɪsˈtɜːbəns]" },
+            { en: "disturbance handler", ru: "наладчик по беспорядкам" },
+            { en: "division", ru: "подразделение" },
+            { en: "environment", ru: "среда; условия деятельности; правовая база", tr: "[ɪnˈvaɪrənmənt]" },
+            { en: "business environment", ru: "экономическая обстановка; деловая среда" },
+            { en: "exert", ru: "оказать давление", tr: "[ɪɡˈzɜːt]" },
+            { en: "exert effort", ru: "прилагать усилия" },
+            { en: "expend", ru: "тратить, расходовать", tr: "[ɪkˈspend]" },
+            { en: "expend efforts", ru: "затрачивать усилия" },
+            { en: "framework", ru: "основа, база, законодательные рамки" },
+            { en: "function", ru: "функция" },
+            { en: "perform a function", ru: "выполнять функцию" },
+            { en: "govern", ru: "управлять; регулировать; руководить" },
+            { en: "governance", ru: "управление; руководство; власть", tr: "[ˈɡʌvənəns]" },
+            { en: "corporate governance", ru: "корпоративное управление" },
+            { en: "hierarchy", ru: "иерархия", tr: "[ˈhaɪərɑːki]" },
+            { en: "hierarchical", ru: "иерархический", tr: "[ˌhaɪəˈrɑːkɪkl]" },
+            { en: "horizon", ru: "горизонт; кругозор", tr: "[həˈraɪzn]" },
+            { en: "to broaden one's horizons", ru: "расширять свой кругозор" },
+            { en: "time horizon", ru: "горизонт прогнозирования" },
+            { en: "horizontal", ru: "горизонтальный" },
+            { en: "horizontal communication", ru: "горизонтальная коммуникация" },
+            { en: "implement", ru: "реализовать; осуществлять", tr: "[ˈɪmplɪmənt]" },
+            { en: "incentive", ru: "стимул", tr: "[ɪnˈsentɪv]" },
+            { en: "monetary incentives", ru: "денежные стимулы" },
+            { en: "interconnected", ru: "взаимосвязанный", tr: "[ˌɪntəkəˈnektɪd]" },
+            { en: "job", ru: "место работы; должность" },
+            { en: "job description", ru: "должностные обязанности" },
+            { en: "job enlargement", ru: "расширение обязанностей" },
+            { en: "job enrichment", ru: "расширение полномочий", tr: "[ɪnˈrɪtʃmənt]" },
+            { en: "job rotation", ru: "ротация должностей" },
+            { en: "manage", ru: "управлять; руководить" },
+            { en: "management", ru: "управление, менеджмент" },
+            { en: "senior management", ru: "высшее руководство" },
+            { en: "middle management", ru: "руководство среднего звена" },
+            { en: "supervisory management", ru: "группа менеджеров, несущих прямую ответственность" },
+            { en: "manpower", ru: "личный состав, кадры" },
+            { en: "manpower plan", ru: "план комплектования кадров" },
+            { en: "organization", ru: "организация; структура" },
+            { en: "matrix organization", ru: "матричная организация" },
+            { en: "line and staff organization", ru: "линейно-функциональная организация" },
+            { en: "performance", ru: "выполнение, исполнение; результативность" },
+            { en: "company's performance", ru: "результативность деятельности фирмы" },
+            { en: "permeate", ru: "распространять, охватывать" },
+            { en: "personnel", ru: "штат, кадры, личный состав" },
+            { en: "procedure", ru: "порядок действий, алгоритм" },
+            { en: "policies and procedures", ru: "принципы и порядок; стратегии и процедуры" },
+            { en: "regulate", ru: "регулировать; регламентировать" },
+            { en: "regulation", ru: "положение, предписание; орган контроля" },
+            { en: "skill", ru: "искусство, мастерство, умение, навык" },
+            { en: "interpersonal skills", ru: "навыки межличностного общения" },
+            { en: "train staff", ru: "обучать персонал" },
+            { en: "subordinate", ru: "подчиненный" },
+            { en: "techniques", ru: "методы" },
+            { en: "staff", ru: "штат, кадры" },
+            { en: "staffing", ru: "кадровое обеспечение" },
+            { en: "staffing position", ru: "штатная единица; укомплектованность штатами" },
+            { en: "unit", ru: "структурная единица" }
+        ];
+
+        const dictWordsSmall = [
+            { en: "accomplish", ru: "выполнять, достигать", tr: "[əˈkʌmplɪʃ]" },
+            { en: "ambiguity", ru: "двусмысленность, неопределенность", tr: "[ˌæmbɪˈɡjuːəti]" },
+            { en: "authority", ru: "власть, полномочия", tr: "[ɔːˈθɒrɪti]" },
+            { en: "awareness", ru: "осведомленность", tr: "[əˈweənəs]" },
+            { en: "command", ru: "команда, приказ", tr: "[kəˈmɑːnd]" },
+            { en: "consistency", ru: "последовательность", tr: "[kənˈsɪstənsi]" },
+            { en: "contingencies", ru: "непредвиденные обстоятельства", tr: "[kənˈtɪndʒənsiz]" },
+            { en: "departmentalize", ru: "разделять на отделы", tr: "[ˌdiːpɑːtˈmentəlaɪz]" },
+            { en: "effort", ru: "усилие" },
+            { en: "emphasis", ru: "акцент, особое внимание", tr: "[ˈemfəsɪс]" },
+            { en: "enrichment", ru: "обогащение", tr: "[ɪnˈrɪtʃmənt]" },
+            { en: "enlargement", ru: "расширение", tr: "[ɪnˈlɑːdʒmənt]" },
+            { en: "environment", ru: "среда, окружение", tr: "[ɪnˈvaɪrənmənt]" },
+            { en: "exert", ru: "прилагать, проявлять", tr: "[ɪɡˈzɜːt]" },
+            { en: "expend", ru: "тратить, расходовать", tr: "[ɪkˈspend]" },
+            { en: "govern", ru: "управлять, руководить" },
+            { en: "guide", ru: "направлять, руководить" },
+            { en: "hierarchy", ru: "иерархия", tr: "[ˈhaɪərɑːki]" },
+            { en: "hierarchical", ru: "иерархический", tr: "[ˌhaɪəˈrɑːkɪkl]" },
+            { en: "horizon", ru: "горизонт", tr: "[həˈraɪzn]" },
+            { en: "horizontal", ru: "горизонтальный" },
+            { en: "incentive", ru: "стимул, поощрение", tr: "[ɪnˈsentɪv]" },
+            { en: "inspire", ru: "вдохновлять", tr: "[ɪnˈspaɪə]" },
+            { en: "junior", ru: "младший" },
+            { en: "peripheral activities", ru: "второстепенная деятельность", tr: "[pəˈrɪfərəl]" },
+            { en: "permeate", ru: "проникать, распространяться", tr: "[ˈpɜːmieɪt]" },
+            { en: "personal", ru: "личный, персональный" },
+            { en: "personnel", ru: "персонал, кадры", tr: "[ˌpɜːsəˈnel]" },
+            { en: "procedure", ru: "процедура, порядок действий", tr: "[prəˈsiːdʒə]" },
+            { en: "senior", ru: "старший, высший" },
+            { en: "specify", ru: "точно определять, указывать" },
+            { en: "subordinate", ru: "подчиненный", tr: "[səˈbɔːdɪnɪt]" },
+            { en: "supervisory", ru: "контролирующий, надзорный", tr: "[ˌsuːpəˈvaɪzəri]" },
+            { en: "techniques", ru: "методы, приемы", tr: "[tekˈniːks]" },
+            { en: "unify", ru: "объединять", tr: "[ˈjuːnɪfaɪ]" }
+        ];
+
+        // --- ЛОКАЛЬНОЕ СОХРАНЕНИЕ ---
+        let hardWordsList = JSON.parse(localStorage.getItem('hardWords')) || [];
+        
+        function updateHardWordsBtn() {
+            const btn = document.getElementById('btn-dict-hard');
+            btn.innerText = `🔥 Трудные слова (${hardWordsList.length})`;
+            btn.disabled = hardWordsList.length === 0;
+            if(hardWordsList.length === 0) btn.style.opacity = '0.6';
+            else btn.style.opacity = '1';
+        }
+        
+        function saveHardWord(wordObj) {
+            const exists = hardWordsList.find(w => w.en === wordObj.en);
+            if (!exists) {
+                hardWordsList.push(wordObj);
+                localStorage.setItem('hardWords', JSON.stringify(hardWordsList));
+                updateHardWordsBtn();
+            }
+        }
+        
+        document.getElementById('btn-clear-hard').addEventListener('click', () => {
+            if(confirm('Очистить список трудных слов?')) {
+                hardWordsList = [];
+                localStorage.setItem('hardWords', JSON.stringify(hardWordsList));
+                updateHardWordsBtn();
+            }
+        });
+        
+        updateHardWordsBtn();
+
+        // --- ОЗВУЧКА ---
+        function speakEnglish(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); 
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US'; 
+                utterance.rate = 0.9;
+                
+                let voices = window.speechSynthesis.getVoices();
+                if (voices.length > 0) {
+                    let enVoice = voices.find(v => v.lang.startsWith('en'));
+                    if (enVoice) utterance.voice = enVoice;
+                }
+                
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Ваш браузер не поддерживает озвучку.");
+            }
+        }
+        
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = function() {
+                window.speechSynthesis.getVoices();
+            };
+        }
+
+        // --- СОСТОЯНИЕ ПРИЛОЖЕНИЯ ---
+        let currentDictionary = [];
+        let activeDictName = '';
+        let workingArray = []; 
+        let statsTotalMistakes = 0;
+        let wordsWithMistakes = new Set();
+        
+        const dictMenuScreen = document.getElementById('dict-menu-screen');
+        const modeMenuScreen = document.getElementById('mode-menu-screen');
+        const flashcardScreen = document.getElementById('flashcard-screen');
+        const crammingScreen = document.getElementById('cramming-screen');
+        const appTitle = document.getElementById('app-title');
+
+        // --- НАВИГАЦИЯ ---
+        document.getElementById('btn-dict-hard').addEventListener('click', () => {
+            if(hardWordsList.length > 0) selectDictionary(hardWordsList, 'hard', 'Трудные слова');
+        });
+        document.getElementById('btn-dict-phrases').addEventListener('click', () => selectDictionary(dictPhrases, 'phrases', 'Словосочетания'));
+        document.getElementById('btn-dict-big').addEventListener('click', () => selectDictionary(dictWordsBig, 'big', 'Большой словарь'));
+        document.getElementById('btn-dict-small').addEventListener('click', () => selectDictionary(dictWordsSmall, 'small', 'Малый словарь'));
+
+        document.getElementById('btn-back-to-dicts').addEventListener('click', showDictMenu);
+        document.getElementById('btn-back-fc').addEventListener('click', returnToModes);
+        document.getElementById('btn-back-cram').addEventListener('click', returnToModes);
+
+        function returnToModes() {
+            window.speechSynthesis.cancel();
+            showModeMenu();
+        }
+
+        function showDictMenu() {
+            appTitle.innerText = "📚 Главное меню";
+            dictMenuScreen.classList.remove('hidden');
+            modeMenuScreen.classList.add('hidden');
+            flashcardScreen.classList.add('hidden');
+            crammingScreen.classList.add('hidden');
+        }
+
+        function showModeMenu() {
+            appTitle.innerText = "⚙️ Выбор режима";
+            dictMenuScreen.classList.add('hidden');
+            modeMenuScreen.classList.remove('hidden');
+            flashcardScreen.classList.add('hidden');
+            crammingScreen.classList.add('hidden');
+        }
+
+        function selectDictionary(dict, id, name) {
+            currentDictionary = dict;
+            activeDictName = id;
+            document.getElementById('selected-dict-info').innerHTML = `Выбран: <b>${name}</b><br><span style="font-size:0.9rem; font-weight:normal;">(Слова перемешаны)</span>`;
+            showModeMenu();
+        }
+
+        function shuffleArray(array) {
+            let shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // --- ЛОГИКА КАРТОЧЕК И СВАЙПОВ ---
+        let fcIndex = 0;
+        let fcMode = 'en-ru';
+        let fcFlipped = false;
+
+        document.getElementById('btn-mode-en-ru').addEventListener('click', () => startFlashcards('en-ru'));
+        document.getElementById('btn-mode-ru-en').addEventListener('click', () => startFlashcards('ru-en'));
+        
+        document.getElementById('fc-card').addEventListener('click', function(e) {
+            if(e.target.classList.contains('speak-btn')) return;
+            flipCard();
+        });
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const fcCard = document.getElementById('fc-card');
+
+        fcCard.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        fcCard.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, {passive: true});
+
+        function handleSwipe() {
+            const threshold = 50;
+            if (touchEndX < touchStartX - threshold) {
+                saveHardWord(workingArray[fcIndex]);
+                fcCard.style.backgroundColor = '#fee2e2'; 
+                setTimeout(() => { fcCard.style.backgroundColor = 'white'; nextFlashcard(); }, 200);
+            }
+            if (touchEndX > touchStartX + threshold) {
+                fcCard.style.backgroundColor = '#d1fae5'; 
+                setTimeout(() => { fcCard.style.backgroundColor = 'white'; nextFlashcard(); }, 200);
+            }
+        }
+
+        document.getElementById('fc-speak-front').addEventListener('click', () => speakEnglish(workingArray[fcIndex].en));
+        document.getElementById('fc-speak-back').addEventListener('click', () => speakEnglish(workingArray[fcIndex].en));
+
+        function startFlashcards(mode) {
+            fcMode = mode;
+            fcIndex = 0;
+            workingArray = shuffleArray(currentDictionary);
+            modeMenuScreen.classList.add('hidden');
+            flashcardScreen.classList.remove('hidden');
+            updateFlashcard();
+        }
+
+        function updateFlashcard() {
+            fcFlipped = false;
+            document.getElementById('fc-counter').innerText = `${fcIndex + 1} / ${workingArray.length}`;
+            const word = workingArray[fcIndex];
+            
+            const backContainer = document.getElementById('fc-back-container');
+            const frontSpeakBtn = document.getElementById('fc-speak-front');
+            const backSpeakBtn = document.getElementById('fc-speak-back');
+            const trFront = document.getElementById('fc-tr-front');
+            const trBack = document.getElementById('fc-tr-back');
+
+            if (fcMode === 'en-ru') {
+                document.getElementById('fc-front').innerText = word.en;
+                document.getElementById('fc-back').innerText = word.ru;
+                
+                if (word.tr) { trFront.innerText = word.tr; trFront.classList.remove('hidden'); }
+                else { trFront.classList.add('hidden'); }
+                trBack.classList.add('hidden');
+                
+                frontSpeakBtn.classList.remove('hidden');
+                backSpeakBtn.classList.add('hidden');
+            } else {
+                document.getElementById('fc-front').innerText = word.ru;
+                document.getElementById('fc-back').innerText = word.en;
+                
+                trFront.classList.add('hidden');
+                if (word.tr) { trBack.innerText = word.tr; }
+                
+                frontSpeakBtn.classList.add('hidden');
+                backSpeakBtn.classList.remove('hidden');
+            }
+            
+            backContainer.classList.add('hidden');
+            document.getElementById('fc-hint').classList.remove('hidden');
+        }
+
+        function flipCard() {
+            if (!fcFlipped) {
+                document.getElementById('fc-back-container').classList.remove('hidden');
+                if(fcMode === 'ru-en' && workingArray[fcIndex].tr) {
+                    document.getElementById('fc-tr-back').classList.remove('hidden');
+                }
+                document.getElementById('fc-hint').classList.add('hidden');
+                fcFlipped = true;
+                
+                if (fcMode === 'ru-en') speakEnglish(workingArray[fcIndex].en);
+            }
+        }
+
+        function nextFlashcard() {
+            fcIndex++;
+            if (fcIndex >= workingArray.length) {
+                alert("Словарь пройден! Начинаем заново.");
+                fcIndex = 0;
+            }
+            updateFlashcard();
+        }
+
+        // --- ЛОГИКА ЗУБРЁЖКИ ---
+        let currentGlobalIndex = 0; 
+        let currentBlock = [];
+        let reviewQueue = [];
+        let testQueue = [];
+        let failedInBlock = [];
+        let currentWord = null;
+
+        const blockInfo = document.getElementById('blockInfo');
+        const ruText = document.getElementById('ruText');
+        const enTextParent = document.getElementById('enText').parentElement;
+        const enText = document.getElementById('enText');
+        const trCram = document.getElementById('cram-tr');
+        const answerInput = document.getElementById('answerInput');
+        const statusText = document.getElementById('statusText');
+        const nextReviewBtn = document.getElementById('nextReviewBtn');
+        const checkBtn = document.getElementById('checkBtn');
+        const nextTestBtn = document.getElementById('nextTestBtn');
+        const progressFill = document.getElementById('progressFill');
+
+        document.getElementById('btn-mode-cram').addEventListener('click', startCramming);
+        nextReviewBtn.addEventListener('click', showNextReview);
+        checkBtn.addEventListener('click', handleCheck);
+        nextTestBtn.addEventListener('click', showNextTest);
+        
+        document.getElementById('cram-speak-btn').addEventListener('click', () => speakEnglish(currentWord.en));
+
+        function startCramming() {
+            modeMenuScreen.classList.add('hidden');
+            crammingScreen.classList.remove('hidden');
+            
+            currentGlobalIndex = 0;
+            statsTotalMistakes = 0;
+            wordsWithMistakes.clear();
+            
+            workingArray = shuffleArray(currentDictionary);
+            loadNextBlock();
+        }
+
+        function updateProgress() {
+            progressFill.style.width = (currentGlobalIndex / workingArray.length) * 100 + '%';
+        }
+
+        function loadNextBlock() {
+            if (currentGlobalIndex >= workingArray.length) {
+                blockInfo.innerText = "🎉 Готово!";
+                let correctFirstTry = workingArray.length - wordsWithMistakes.size;
+                let accuracy = Math.round((correctFirstTry / workingArray.length) * 100) || 0;
+                
+                ruText.innerHTML = `
+                    <h2>🏁 Тренировка завершена!</h2>
+                    <div style="font-size: 1.1rem; color: #374151; margin-top: 15px; text-align: left; display: inline-block;">
+                        <ul style="padding-left: 20px; line-height: 1.8;">
+                            <li>Всего слов: <b>${workingArray.length}</b></li>
+                            <li>Точность: <b>${accuracy}%</b></li>
+                            <li>Ошибок: <b style="color: #ef4444;">${statsTotalMistakes}</b></li>
+                        </ul>
+                    </div>
+                `;
+                
+                enTextParent.classList.add('hidden');
+                trCram.classList.add('hidden');
+                answerInput.classList.add('hidden');
+                statusText.innerText = "";
+                checkBtn.classList.add('hidden');
+                nextReviewBtn.classList.add('hidden');
+                nextTestBtn.classList.add('hidden');
+                progressFill.style.width = '100%';
+                return;
+            }
+            updateProgress();
+            
+            let blockSize = (activeDictName === 'phrases' || activeDictName === 'hard') ? 5 : 10;
+            currentBlock = workingArray.slice(currentGlobalIndex, currentGlobalIndex + blockSize);
+            const endNum = Math.min(currentGlobalIndex + blockSize, workingArray.length);
+            blockInfo.innerText = `Блок: ${currentGlobalIndex + 1} - ${endNum} из ${workingArray.length}`;
+            startReviewPhase(currentBlock);
+        }
+
+        function startReviewPhase(words) {
+            reviewQueue = [...words];
+            showNextReview();
+        }
+
+        function showNextReview() {
+            if (reviewQueue.length === 0) {
+                startTestPhase(currentBlock);
+                return;
+            }
+            currentWord = reviewQueue.shift();
+            ruText.innerText = currentWord.ru;
+            enText.innerText = currentWord.en;
+            
+            if (currentWord.tr) { trCram.innerText = currentWord.tr; trCram.classList.remove('hidden'); }
+            else { trCram.classList.add('hidden'); }
+
+            enTextParent.classList.remove('hidden');
+            answerInput.classList.add('hidden');
+            statusText.innerText = "Запомните перевод";
+            statusText.style.color = "#4b5563";
+            
+            nextReviewBtn.classList.remove('hidden');
+            checkBtn.classList.add('hidden');
+            nextTestBtn.classList.add('hidden');
+            
+            speakEnglish(currentWord.en);
+        }
+
+        function startTestPhase(words) {
+            testQueue = [...words];
+            failedInBlock = [];
+            showNextTest();
+        }
+
+        function showNextTest() {
+            if (testQueue.length === 0) {
+                if (failedInBlock.length > 0) {
+                    statusText.innerText = "Повторяем ошибки!";
+                    setTimeout(() => {
+                        currentBlock = [...failedInBlock];
+                        startReviewPhase(currentBlock);
+                    }, 1000);
+                } else {
+                    let blockSize = (activeDictName === 'phrases' || activeDictName === 'hard') ? 5 : 10;
+                    currentGlobalIndex += blockSize;
+                    loadNextBlock();
+                }
+                return;
+            }
+            currentWord = testQueue.shift();
+            ruText.innerText = currentWord.ru;
+            enTextParent.classList.add('hidden');
+            trCram.classList.add('hidden');
+            answerInput.classList.remove('hidden');
+            answerInput.value = "";
+            answerInput.className = "";
+            statusText.innerText = "";
+            
+            nextReviewBtn.classList.add('hidden');
+            checkBtn.classList.remove('hidden');
+            nextTestBtn.classList.add('hidden');
+        }
+
+        function normalizeText(text) {
+            return text.toLowerCase().trim().replace(/\s+/g, ' ');
+        }
+
+        function handleCheck() {
+            const userAnswer = normalizeText(answerInput.value);
+            const correctAnswer = normalizeText(currentWord.en);
+
+            if (userAnswer === correctAnswer) {
+                answerInput.classList.add('correct');
+                statusText.innerText = "✅ Верно!";
+                statusText.style.color = "#10b981";
+                checkBtn.classList.add('hidden');
+                
+                speakEnglish(currentWord.en); 
+                setTimeout(showNextTest, 1200);
+            } else {
+                statsTotalMistakes++;
+                wordsWithMistakes.add(currentWord.en);
+                saveHardWord(currentWord); 
+                
+                answerInput.classList.add('wrong');
+                statusText.innerHTML = `❌ Ошибка.<br>Правильно: <br><span style="color:#2563eb; font-weight:bold; font-size:1.1rem; margin-top:5px; display:inline-block;">${currentWord.en}</span>`;
+                statusText.style.color = "#ef4444";
+                failedInBlock.push(currentWord);
+                checkBtn.classList.add('hidden');
+                nextTestBtn.classList.remove('hidden');
+                
+                speakEnglish(currentWord.en); 
+            }
+        }
+
+        answerInput.addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                answerInput.blur();
+                if (!checkBtn.classList.contains('hidden')) {
+                    handleCheck();
+                } else if (!nextTestBtn.classList.contains('hidden')) {
+                    showNextTest();
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>
