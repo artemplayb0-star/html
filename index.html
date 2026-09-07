@@ -41,6 +41,7 @@
         .accent-small { border-left: 4px solid #8b5cf6; }
         .accent-hard { border-left: 4px solid #f59e0b; }
         .accent-smart { border-left: 4px solid #ec4899; } 
+        .accent-test { border-left: 4px solid #eab308; } 
         
         .btn-danger-icon {
             background: linear-gradient(145deg, #2a1619, #1f1013); border: 1px solid #3a1f23;
@@ -56,7 +57,7 @@
         }
         .btn-secondary:active { background: #1f2937; color: white;}
 
-        /* СПИСОК ПРЕДПРОСМОТРА */
+        /* СПИСОК ПРЕДПРОСМОТРА И ОШИБОК */
         .preview-list {
             background: #14171d; border: 1px solid #2a2f3a; border-radius: 20px;
             max-height: 50vh; overflow-y: auto; padding: 15px; margin-bottom: 20px;
@@ -124,7 +125,7 @@
         .btn-nope { background-color: #3f1d24; color: #fca5a5; border: 1px solid #7f1d1d; }
         .btn-yep { background-color: #064e3b; color: #6ee7b7; border: 1px solid #065f46; }
 
-        /* УМНОЕ ЗАУЧИВАНИЕ (QUIZLET STYLE) */
+        /* УМНОЕ ЗАУЧИВАНИЕ И ТЕСТ (MCQ) */
         .smart-stats-header {
             display: flex; justify-content: space-between; width: 100%; margin-bottom: 10px; font-size: 0.95rem; font-weight: 700;
         }
@@ -212,6 +213,8 @@
             <hr style="width: 80%; border: 0; border-top: 1px solid #2a2f3a; margin: 5px auto;">
             <button class="btn-aesthetic" id="btn-mode-en-ru">📇 Карточки: Англ ➔ Рус</button>
             <button class="btn-aesthetic" id="btn-mode-ru-en">📇 Карточки: Рус ➔ Англ</button>
+            <hr style="width: 80%; border: 0; border-top: 1px solid #2a2f3a; margin: 5px auto;">
+            <button class="btn-aesthetic accent-test" id="btn-mode-test">📝 Пройти Тест</button>
         </div>
         <div class="flex-row">
             <button class="btn-secondary" id="btn-to-preview-from-mode" style="flex: 1;">🔙 К списку</button>
@@ -250,7 +253,7 @@
         </div>
     </div>
 
-    <!-- УМНОЕ ЗАУЧИВАНИЕ (QUIZLET MODE) -->
+    <!-- УМНОЕ ЗАУЧИВАНИЕ -->
     <div id="smart-screen" class="hidden">
         <div class="smart-stats-header">
             <span class="sm-stat-gray">Осталось: <span id="sm-rem-count"></span></span>
@@ -259,17 +262,15 @@
         </div>
         <div class="progress-bar"><div class="progress-fill" id="sm-progressFill"></div></div>
 
-        <div class="card" id="sm-cardArea" style="min-height: 280px; justify-content: flex-start; padding-top: 30px;">
+        <div class="card" style="min-height: 280px; justify-content: flex-start; padding-top: 30px;">
             <div class="phrase-sub" id="sm-question-ru" style="margin-bottom: 10px;"></div>
             
             <div class="phrase-main" id="sm-question-en"></div>
             <div class="transcription hidden" id="sm-tr"></div>
             <button class="speak-btn hidden" id="sm-speak-btn" style="margin-bottom: 20px;">🔊</button>
             
-            <!-- Зона тестов (MCQ) -->
             <div class="mcq-container hidden" id="sm-mcq-area"></div>
             
-            <!-- Зона письма (Written) -->
             <div id="sm-written-area" class="hidden" style="width: 100%; margin-top: 15px;">
                 <input type="text" id="sm-answerInput" placeholder="Введите ответ..." autocomplete="off" autocorrect="off" autocapitalize="none">
                 <button class="btn-aesthetic accent-smart" id="sm-checkBtn">Проверить</button>
@@ -285,7 +286,37 @@
         </div>
     </div>
 
-    <!-- ИТОГОВЫЙ ЭКРАН СТАТИСТИКИ -->
+    <!-- РЕЖИМ ТЕСТА -->
+    <div id="test-screen" class="hidden">
+        <div class="smart-stats-header">
+            <span class="sm-stat-gray">Вопрос: <span id="test-q-count"></span></span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="test-progressFill"></div></div>
+
+        <div class="card" style="min-height: 280px; justify-content: flex-start; padding-top: 30px;">
+            <div class="phrase-sub" id="test-question-hint" style="margin-bottom: 10px; color: #9ca3af;"></div>
+            <div class="phrase-main" id="test-question-text"></div>
+            <div class="transcription hidden" id="test-tr"></div>
+            <button class="speak-btn hidden" id="test-speak-btn" style="margin-bottom: 20px;">🔊</button>
+            
+            <div class="mcq-container hidden" id="test-mcq-area"></div>
+            
+            <div id="test-written-area" class="hidden" style="width: 100%; margin-top: 15px;">
+                <input type="text" id="test-answerInput" placeholder="Ваш ответ..." autocomplete="off" autocorrect="off" autocapitalize="none">
+                <button class="btn-aesthetic accent-test" id="test-checkBtn">Ответить</button>
+            </div>
+            
+            <div class="status-text" id="test-statusText" style="margin-top: 20px;"></div>
+            <button class="btn-aesthetic hidden" id="test-nextBtn">Следующий вопрос</button>
+        </div>
+        
+        <div class="flex-row">
+            <button class="btn-secondary" id="btn-back-test" style="flex: 1;">🔙 Выйти</button>
+            <button class="btn-secondary" id="btn-home-test" style="flex: 1;">🏠 На главную</button>
+        </div>
+    </div>
+
+    <!-- ИТОГОВЫЙ ЭКРАН СТАТИСТИКИ (ОБЩИЙ ДЛЯ ЗУБРЁЖКИ) -->
     <div id="stats-screen" class="hidden" style="width: 100%;">
         <div class="stat-title" id="stats-title-msg">Вы усердный ученик!<br>Продолжайте осваивать сложные термины.</div>
         <p class="block-info" style="text-align: left; margin-top: 20px; margin-bottom: 5px;">Ваш прогресс</p>
@@ -304,6 +335,32 @@
         <div class="menu-list" style="margin-top: 20px;">
             <button class="btn-aesthetic accent-big" id="btn-stats-restart">🔄 Начать заново</button>
             <button class="btn-secondary" id="btn-stats-menu">🏠 Главное меню</button>
+        </div>
+    </div>
+
+    <!-- ИТОГОВЫЙ ЭКРАН СТАТИСТИКИ ДЛЯ ТЕСТА (С ОШИБКАМИ) -->
+    <div id="test-results-screen" class="hidden" style="width: 100%;">
+        <div class="stat-title" id="test-res-title">Результаты теста</div>
+        
+        <div class="stats-container" style="margin-top: 20px;">
+            <div class="donut-wrapper" id="test-donut">
+                <div class="donut-inner" id="test-percent">100%</div>
+            </div>
+            <div class="stats-bars">
+                <div class="stat-bar bar-green"><span>Верно</span> <span id="test-res-correct">0</span></div>
+                <div class="stat-bar bar-orange"><span>Ошибок</span> <span id="test-res-wrong">0</span></div>
+            </div>
+        </div>
+
+        <div id="test-mistakes-container" class="hidden" style="width: 100%; text-align: left; margin-top: 20px;">
+            <p class="block-info" style="text-align: left; margin-bottom: 10px; color: #ef4444;">Список ваших ошибок:</p>
+            <div class="preview-list" id="test-mistakes-list" style="max-height: 25vh; margin-bottom: 15px;"></div>
+            <button class="btn-aesthetic accent-hard" id="btn-test-retake-mistakes">🔄 Пройти тест над ошибками</button>
+        </div>
+
+        <div class="menu-list" style="margin-top: 20px;">
+            <button class="btn-aesthetic accent-test" id="btn-test-restart">🔄 Начать тест заново</button>
+            <button class="btn-secondary" id="btn-test-to-menu">🏠 Главное меню</button>
         </div>
     </div>
 
@@ -458,6 +515,7 @@
             btn.addEventListener('click', function(e) {
                 e.stopPropagation(); 
                 if (!smartScreen.classList.contains('hidden')) speakEnglish(smCurrent.word.en);
+                else if (!testScreen.classList.contains('hidden')) speakEnglish(testCurrentWord.en);
                 else speakEnglish(workingArray[fcIndex].en);
             });
         });
@@ -468,6 +526,7 @@
         const dictMenuScreen = document.getElementById('dict-menu-screen'); const previewScreen = document.getElementById('preview-screen');
         const modeMenuScreen = document.getElementById('mode-menu-screen'); const flashcardScreen = document.getElementById('flashcard-screen');
         const smartScreen = document.getElementById('smart-screen'); const statsScreen = document.getElementById('stats-screen'); 
+        const testScreen = document.getElementById('test-screen'); const testResultsScreen = document.getElementById('test-results-screen');
         const appTitle = document.getElementById('app-title');
 
         // Выбор словаря -> Предпросмотр
@@ -490,15 +549,18 @@
 
         const goMainMenu = () => {
             window.speechSynthesis.cancel(); appTitle.innerText = "📚 Главное меню";
-            [previewScreen, modeMenuScreen, flashcardScreen, smartScreen, statsScreen].forEach(s => s.classList.add('hidden'));
+            [previewScreen, modeMenuScreen, flashcardScreen, smartScreen, statsScreen, testScreen, testResultsScreen].forEach(s => s.classList.add('hidden'));
             dictMenuScreen.classList.remove('hidden');
         };
 
+        // Кнопки возврата на главную
         document.getElementById('btn-to-main-from-preview').addEventListener('click', goMainMenu);
         document.getElementById('btn-to-main-from-mode').addEventListener('click', goMainMenu);
         document.getElementById('btn-home-fc').addEventListener('click', goMainMenu);
         document.getElementById('btn-home-sm').addEventListener('click', goMainMenu);
         document.getElementById('btn-stats-menu').addEventListener('click', goMainMenu);
+        document.getElementById('btn-home-test').addEventListener('click', goMainMenu);
+        document.getElementById('btn-test-to-menu').addEventListener('click', goMainMenu);
 
         document.getElementById('btn-to-modes').addEventListener('click', () => {
             document.getElementById('selected-dict-info').innerHTML = `Словарь: <b style="color:#60a5fa">${document.getElementById('preview-title').innerText.split('(')[0]}</b>`;
@@ -511,12 +573,13 @@
 
         function returnToModes() {
             window.speechSynthesis.cancel(); appTitle.innerText = "⚙️ Выбор режима";
-            [flashcardScreen, smartScreen].forEach(s => s.classList.add('hidden'));
+            [flashcardScreen, smartScreen, testScreen].forEach(s => s.classList.add('hidden'));
             modeMenuScreen.classList.remove('hidden');
         }
         
         document.getElementById('btn-back-fc').addEventListener('click', returnToModes);
         document.getElementById('btn-back-sm').addEventListener('click', returnToModes);
+        document.getElementById('btn-back-test').addEventListener('click', returnToModes);
 
         document.getElementById('btn-stats-restart').addEventListener('click', () => {
             statsScreen.classList.add('hidden');
@@ -798,7 +861,152 @@
                 smCheckBtn.classList.add('hidden'); smNextBtn.classList.remove('hidden');
             }
         }
+
+        // --- РЕЖИМ: ПРОЙТИ ТЕСТ ---
+        let testArray = []; let testIndex = 0; let testErrors = []; let testScore = 0;
+        let testCurrentWord = null; let testIsEnToRu = true;
+
+        document.getElementById('btn-mode-test').addEventListener('click', () => {
+            currentModeName = 'test';
+            startTest(currentDictionary);
+        });
+
+        function startTest(words) {
+            testArray = shuffleArray([...words]);
+            testIndex = 0; testErrors = []; testScore = 0;
+            appTitle.innerText = "📝 Тест";
+            modeMenuScreen.classList.add('hidden'); testResultsScreen.classList.add('hidden'); testScreen.classList.remove('hidden');
+            nextTestQuestion();
+        }
+
+        function nextTestQuestion() {
+            if (testIndex >= testArray.length) { finishTest(); return; }
+
+            testCurrentWord = testArray[testIndex];
+            document.getElementById('test-q-count').innerText = `${testIndex + 1} / ${testArray.length}`;
+            document.getElementById('test-progressFill').style.width = (testIndex / testArray.length) * 100 + '%';
+
+            const mcqArea = document.getElementById('test-mcq-area'); const writtenArea = document.getElementById('test-written-area');
+            const input = document.getElementById('test-answerInput'); const nextBtn = document.getElementById('test-nextBtn');
+            const checkBtn = document.getElementById('test-checkBtn'); const status = document.getElementById('test-statusText');
+            const qText = document.getElementById('test-question-text'); const qHint = document.getElementById('test-question-hint');
+            const trText = document.getElementById('test-tr'); const speakBtn = document.getElementById('test-speak-btn');
+
+            mcqArea.innerHTML = ''; mcqArea.classList.add('hidden'); writtenArea.classList.add('hidden');
+            nextBtn.classList.add('hidden'); status.innerText = ''; input.className = ''; input.value = '';
+
+            testIsEnToRu = Math.random() > 0.5;
+            const isMcq = currentDictionary.length >= 4 ? Math.random() > 0.5 : false;
+
+            if (testIsEnToRu) {
+                qHint.innerText = "Переведите на русский:"; qText.innerText = testCurrentWord.en; speakBtn.classList.remove('hidden');
+                if (testCurrentWord.tr) { trText.innerText = testCurrentWord.tr; trText.classList.remove('hidden'); } else trText.classList.add('hidden');
+                speakEnglish(testCurrentWord.en);
+            } else {
+                qHint.innerText = "Переведите на английский:"; qText.innerText = testCurrentWord.ru; speakBtn.classList.add('hidden'); trText.classList.add('hidden');
+            }
+
+            if (isMcq) {
+                mcqArea.classList.remove('hidden');
+                let correctAns = testIsEnToRu ? testCurrentWord.ru : testCurrentWord.en;
+                let pool = currentDictionary.filter(w => w.en !== testCurrentWord.en);
+                let options = [testCurrentWord]; pool = shuffleArray(pool);
+                for(let i=0; i<3 && i<pool.length; i++) options.push(pool[i]);
+                options = shuffleArray(options);
+
+                options.forEach(opt => {
+                    let text = testIsEnToRu ? opt.ru : opt.en;
+                    let btn = document.createElement('button'); btn.className = 'mcq-btn'; btn.innerText = text;
+                    btn.onclick = () => handleTestMcq(text, correctAns, btn, !testIsEnToRu ? opt.en : null);
+                    mcqArea.appendChild(btn);
+                });
+            } else {
+                writtenArea.classList.remove('hidden'); checkBtn.classList.remove('hidden');
+                setTimeout(() => input.focus(), 100);
+            }
+        }
+
+        function handleTestMcq(selected, correct, btnNode, englishTextToSpeak) {
+            let btns = document.getElementById('test-mcq-area').querySelectorAll('.mcq-btn');
+            btns.forEach(b => b.disabled = true);
+            const status = document.getElementById('test-statusText');
+            
+            if (selected === correct) {
+                btnNode.classList.add('correct'); status.innerText = "✅ Верно!"; status.style.color = "#10b981"; testScore++;
+                if(englishTextToSpeak) speakEnglish(englishTextToSpeak);
+                setTimeout(() => { testIndex++; nextTestQuestion(); }, 800);
+            } else {
+                btnNode.classList.add('wrong');
+                btns.forEach(b => { if(b.innerText === correct) b.classList.add('correct'); });
+                status.innerHTML = "❌ Ошибка."; status.style.color = "#ef4444";
+                if(englishTextToSpeak) speakEnglish(englishTextToSpeak);
+                testErrors.push(testCurrentWord); saveHardWord(testCurrentWord);
+                document.getElementById('test-nextBtn').classList.remove('hidden');
+            }
+        }
+
+        function handleTestWritten() {
+            const input = document.getElementById('test-answerInput'); const status = document.getElementById('test-statusText');
+            const checkBtn = document.getElementById('test-checkBtn');
+            let correct = testIsEnToRu ? testCurrentWord.ru : testCurrentWord.en;
+            let userAns = input.value.toLowerCase().trim().replace(/\s+/g, ' '); let targetAns = correct.toLowerCase().trim().replace(/\s+/g, ' ');
+
+            if (userAns === targetAns) {
+                input.classList.add('correct'); status.innerText = "✅ Верно!"; status.style.color = "#10b981"; testScore++;
+                if(!testIsEnToRu) speakEnglish(testCurrentWord.en);
+                checkBtn.classList.add('hidden'); setTimeout(() => { testIndex++; nextTestQuestion(); }, 800);
+            } else {
+                input.classList.add('wrong');
+                status.innerHTML = `❌ Ошибка.<br>Правильно: <br><span style="color:#60a5fa; font-weight:bold; font-size:1.2rem; margin-top:5px; display:inline-block;">${correct}</span>`;
+                status.style.color = "#ef4444";
+                if(!testIsEnToRu) speakEnglish(testCurrentWord.en);
+                testErrors.push(testCurrentWord); saveHardWord(testCurrentWord);
+                checkBtn.classList.add('hidden'); document.getElementById('test-nextBtn').classList.remove('hidden');
+            }
+        }
+
+        document.getElementById('test-checkBtn').addEventListener('click', handleTestWritten);
+        document.getElementById('test-nextBtn').addEventListener('click', () => { testIndex++; nextTestQuestion(); });
+        document.getElementById('test-answerInput').addEventListener('keyup', e => {
+            if(e.key === 'Enter') {
+                e.target.blur();
+                if(!document.getElementById('test-checkBtn').classList.contains('hidden')) handleTestWritten();
+                else if(!document.getElementById('test-nextBtn').classList.contains('hidden')) { testIndex++; nextTestQuestion(); }
+            }
+        });
+
+        function finishTest() {
+            document.getElementById('test-screen').classList.add('hidden');
+            const resScreen = document.getElementById('test-results-screen'); resScreen.classList.remove('hidden');
+            appTitle.innerText = "📊 Результаты теста";
+
+            let total = testArray.length; let percent = Math.round((testScore / total) * 100) || 0;
+            document.getElementById('test-percent').innerText = percent + "%";
+            document.getElementById('test-donut').style.background = `conic-gradient(#10b981 ${percent}%, #1e222a 0)`;
+            document.getElementById('test-res-correct').innerText = testScore; document.getElementById('test-res-wrong').innerText = total - testScore;
+
+            const mistakesContainer = document.getElementById('test-mistakes-container'); const mistakesList = document.getElementById('test-mistakes-list');
+            if (testErrors.length > 0) {
+                mistakesContainer.classList.remove('hidden'); mistakesList.innerHTML = '';
+                let uniqueErrors = [...new Set(testErrors)];
+                uniqueErrors.forEach(item => {
+                    const div = document.createElement('div'); div.className = 'preview-item';
+                    div.innerHTML = `<span class="preview-en">${item.en}</span><span class="preview-ru">${item.ru}</span>`;
+                    mistakesList.appendChild(div);
+                });
+            } else mistakesContainer.classList.add('hidden');
+        }
+
+        document.getElementById('btn-test-retake-mistakes').addEventListener('click', () => {
+            let uniqueErrors = [...new Set(testErrors)];
+            startTest(uniqueErrors);
+        });
+
+        document.getElementById('btn-test-restart').addEventListener('click', () => {
+            testResultsScreen.classList.add('hidden'); startTest(currentDictionary);
+        });
     });
 </script>
 </body>
 </html>
+
