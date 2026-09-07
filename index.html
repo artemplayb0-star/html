@@ -3,72 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Бизнес-Английский: PRO</title>
+    <title>Бизнес-Английский: Aesthetic PRO</title>
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f3f4f6;
-            color: #1f2937;
+            background-color: #0b0e14;
+            color: #f3f4f6; 
             margin: 0;
             padding: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            overflow-x: hidden;
         }
-        h1 { color: #2563eb; text-align: center; font-size: 1.5rem; margin: 10px 0 20px 0; }
-        .container { width: 100%; max-width: 500px; display: flex; flex-direction: column; flex-grow: 1; }
-        
-        .btn {
-            width: 100%; background-color: #2563eb; color: white; border: none;
-            padding: 18px; font-size: 1.1rem; font-weight: 600; border-radius: 15px;
-            cursor: pointer; transition: background-color 0.2s; margin-bottom: 12px;
-            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+        h1 { 
+            color: #e2e8f0; text-align: center; font-size: 1.8rem; 
+            margin: 15px 0 25px 0; font-weight: 700; letter-spacing: 0.5px;
         }
-        .btn:active { transform: translateY(2px); box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2); }
-        .btn-check { background-color: #10b981; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2); }
-        .btn-secondary { background-color: #6b7280; box-shadow: 0 4px 6px rgba(107, 114, 128, 0.2); margin-top: 15px;}
-        .btn-warning { background-color: #f59e0b; box-shadow: 0 4px 6px rgba(245, 158, 11, 0.2); }
-        .btn-danger { background-color: #ef4444; box-shadow: 0 4px 6px rgba(239, 68, 68, 0.2); }
+        .container { width: 100%; max-width: 480px; display: flex; flex-direction: column; flex-grow: 1; }
         
+        /* КНОПКИ И МЕНЮ */
+        .menu-list { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+        .btn-aesthetic {
+            width: 100%; background: linear-gradient(145deg, #1a1d24, #12151a);
+            color: #e2e8f0; border: 1px solid #2a2f3a; padding: 20px;
+            font-size: 1.15rem; font-weight: 600; border-radius: 20px;
+            cursor: pointer; transition: all 0.2s ease;
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.4), -2px -2px 8px rgba(255,255,255,0.03);
+            display: flex; align-items: center; justify-content: center; gap: 10px; text-align: center;
+        }
+        .btn-aesthetic:active { transform: scale(0.97); }
+        
+        .accent-phrases { border-left: 4px solid #10b981; }
+        .accent-big { border-left: 4px solid #3b82f6; }
+        .accent-small { border-left: 4px solid #8b5cf6; }
+        .accent-hard { border-left: 4px solid #f59e0b; }
+        .accent-smart { border-left: 4px solid #ec4899; } 
+        
+        .btn-danger-icon {
+            background: linear-gradient(145deg, #2a1619, #1f1013); border: 1px solid #3a1f23;
+            color: #ef4444; padding: 20px; border-radius: 20px; font-size: 1.2rem;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .btn-danger-icon:active { transform: scale(0.95); }
+
+        .btn-secondary { 
+            background: transparent; border: 1px solid #374151; color: #9ca3af; 
+            padding: 16px; margin-top: 15px; border-radius: 15px; width: 100%;
+            font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+        }
+        .btn-secondary:active { background: #1f2937; color: white;}
+
+        /* СПИСОК ПРЕДПРОСМОТРА */
+        .preview-list {
+            background: #14171d; border: 1px solid #2a2f3a; border-radius: 20px;
+            max-height: 50vh; overflow-y: auto; padding: 15px; margin-bottom: 20px;
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .preview-item {
+            padding: 12px 10px; border-bottom: 1px solid #2a2f3a;
+            display: flex; flex-direction: column; gap: 5px;
+        }
+        .preview-item:last-child { border-bottom: none; }
+        .preview-en { color: #60a5fa; font-weight: bold; font-size: 1.1rem; }
+        .preview-ru { color: #d1d5db; font-size: 0.95rem; }
+
+        /* КАРТОЧКА */
         .card {
-            background: white; width: 100%; flex-grow: 1; max-height: 60vh;
-            padding: 25px 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            background: linear-gradient(145deg, #1a1d24, #12151a);
+            width: 100%; flex-grow: 1; max-height: 60vh;
+            padding: 30px 20px; border-radius: 24px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
             display: flex; flex-direction: column; justify-content: center;
-            align-items: center; text-align: center; margin-bottom: 20px; min-height: 300px;
-            overflow-y: auto; position: relative; transition: background-color 0.3s ease;
+            align-items: center; text-align: center; margin-bottom: 20px; min-height: 320px;
+            position: relative; border: 1px solid #2a2f3a;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
-        .phrase-main { font-size: 1.3rem; font-weight: 700; margin-bottom: 5px; color: #2563eb; line-height: 1.4; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;}
-        .phrase-sub { font-size: 1.1rem; font-weight: 600; color: #374151; line-height: 1.4; margin-top: 10px;}
-        .transcription { font-size: 1rem; color: #6b7280; font-style: italic; font-weight: normal; margin-bottom: 10px; }
+        
+        .swipe-left { transform: translateX(-120%) rotate(-15deg); opacity: 0; }
+        .swipe-right { transform: translateX(120%) rotate(15deg); opacity: 0; }
+
+        .phrase-main { font-size: 1.5rem; font-weight: 700; margin-bottom: 15px; color: #60a5fa; line-height: 1.4; word-wrap: break-word;}
+        .phrase-sub { font-size: 1.25rem; font-weight: 600; color: #f3f4f6; line-height: 1.4; margin-bottom: 12px; word-wrap: break-word;}
+        .transcription { font-size: 1.1rem; color: #64748b; font-style: italic; font-weight: normal; margin-bottom: 20px; }
         
         .speak-btn {
-            background: none; border: none; font-size: 1.5rem; cursor: pointer; padding: 5px;
-            border-radius: 50%; transition: background 0.2s;
+            background: #1e293b; border: 1px solid #334155; font-size: 1.5rem; cursor: pointer; padding: 12px;
+            border-radius: 50%; transition: background 0.2s; color: white; margin-top: 15px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
         }
-        .speak-btn:active { background: #e5e7eb; }
+        .speak-btn:active { background: #334155; transform: scale(0.95); }
 
+        /* ИНПУТЫ И ПРОГРЕСС */
         input[type="text"] {
-            width: 100%; padding: 16px; font-size: 16px; 
-            border: 2px solid #d1d5db; border-radius: 12px; outline: none;
-            text-align: center; margin-bottom: 15px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+            width: 100%; padding: 18px; font-size: 16px; 
+            border: 2px solid #334155; border-radius: 16px; outline: none;
+            text-align: center; margin-bottom: 15px;
+            background: #0b0e14; color: #ffffff; transition: border-color 0.2s;
         }
-        input[type="text"]:focus { border-color: #2563eb; }
-        input.correct { border-color: #10b981 !important; background-color: #d1fae5; color: #065f46; }
-        input.wrong { border-color: #ef4444 !important; background-color: #fee2e2; color: #991b1b; }
+        input[type="text"]:focus { border-color: #3b82f6; }
+        input.correct { border-color: #10b981 !important; background-color: #064e3b; color: #6ee7b7; }
+        input.wrong { border-color: #ef4444 !important; background-color: #7f1d1d; color: #fca5a5; }
         
-        .progress-bar { width: 100%; background-color: #e5e7eb; border-radius: 10px; margin-bottom: 15px; overflow: hidden; height: 12px; }
-        .progress-fill { height: 100%; background-color: #10b981; width: 0%; transition: width 0.3s ease; }
-        .block-info { font-size: 1rem; color: #4b5563; margin-bottom: 15px; text-align: center; font-weight: 600; }
+        .progress-bar { width: 100%; background-color: #1e222a; border-radius: 10px; margin-bottom: 20px; overflow: hidden; height: 8px; border: 1px solid #2a2f3a;}
+        .progress-fill { height: 100%; background-color: #3b82f6; width: 0%; transition: width 0.3s ease; }
+        .block-info { font-size: 1rem; color: #94a3b8; margin-bottom: 20px; text-align: center; font-weight: 500; }
         .status-text { margin-bottom: 20px; font-size: 1rem; font-weight: 600; min-height: 48px; display: flex; align-items: center; justify-content: center; flex-direction: column;}
         
-        .hidden { display: none !important; }
-        .flashcard-interactive { cursor: pointer; border: 2px dashed #d1d5db; }
-        .tap-hint { font-size: 0.9rem; color: #9ca3af; margin-top: 15px; font-weight: normal;}
-        .swipe-hint { font-size: 0.85rem; color: #6b7280; margin-top: 5px; font-weight: bold; }
+        /* ПАНЕЛЬ КНОПОК КАРТОЧЕК */
+        .card-controls { display: flex; width: 100%; gap: 15px; margin-bottom: 10px; }
+        .btn-action {
+            flex: 1; padding: 16px; border-radius: 16px; font-size: 1.1rem; font-weight: 600;
+            border: none; cursor: pointer; transition: transform 0.1s, background-color 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn-action:active { transform: scale(0.95); }
+        .btn-nope { background-color: #3f1d24; color: #fca5a5; border: 1px solid #7f1d1d; }
+        .btn-yep { background-color: #064e3b; color: #6ee7b7; border: 1px solid #065f46; }
+
+        /* УМНОЕ ЗАУЧИВАНИЕ (QUIZLET STYLE) */
+        .smart-stats-header {
+            display: flex; justify-content: space-between; width: 100%; margin-bottom: 10px; font-size: 0.95rem; font-weight: 700;
+        }
+        .sm-stat-gray { color: #9ca3af; }
+        .sm-stat-orange { color: #fdba74; }
+        .sm-stat-green { color: #6ee7b7; }
         
-        .flex-row { display: flex; gap: 10px; width: 100%; margin-bottom: 12px; }
+        .mcq-container { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: 15px; }
+        .mcq-btn {
+            background: #1e222a; color: #e2e8f0; border: 1px solid #374151; padding: 15px 20px;
+            border-radius: 16px; font-size: 1.05rem; font-weight: 500; cursor: pointer;
+            transition: all 0.2s; text-align: left;
+        }
+        .mcq-btn:active { transform: scale(0.98); background: #2a2f3a; }
+        .mcq-btn.correct { background: #064e3b; border-color: #10b981; color: #6ee7b7;}
+        .mcq-btn.wrong { background: #7f1d1d; border-color: #ef4444; color: #fca5a5;}
+
+        /* ЭКРАН СТАТИСТИКИ */
+        .stats-container { display: flex; gap: 20px; align-items: center; justify-content: center; margin: 30px 0; width: 100%; }
+        .donut-wrapper {
+            width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0%, #374151 0);
+            display: flex; justify-content: center; align-items: center; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .donut-inner {
+            width: 100px; height: 100px; border-radius: 50%; background: #0b0e14;
+            display: flex; justify-content: center; align-items: center; font-size: 1.8rem; font-weight: 700; color: #fff;
+        }
+        .stats-bars { flex-grow: 1; display: flex; flex-direction: column; gap: 12px; }
+        .stat-bar { display: flex; justify-content: space-between; padding: 12px 18px; border-radius: 12px; font-weight: 600; font-size: 1.1rem; }
+        .bar-green { background-color: #064e3b; color: #6ee7b7; border: 1px solid #10b981; }
+        .bar-orange { background-color: #78350f; color: #fdba74; border: 1px solid #f59e0b; }
+        .bar-gray { background-color: #1e222a; color: #9ca3af; border: 1px solid #374151; }
+        .stat-title { font-size: 1.5rem; color: #e2e8f0; text-align: center; font-weight: 700; line-height: 1.4; margin-top: 20px;}
+
+        /* ФУТЕР ОФОРМЛЕНИЯ */
+        .footer {
+            margin-top: auto; padding: 25px 0 10px 0; width: 100%; display: flex; align-items: center; justify-content: center; gap: 15px;
+            color: #475569; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px;
+        }
+        .footer::before, .footer::after {
+            content: ''; height: 1px; flex-grow: 1; max-width: 80px; background: linear-gradient(90deg, transparent, #3b82f6, transparent); opacity: 0.5;
+        }
+
+        .hidden { display: none !important; }
+        .flashcard-interactive { cursor: pointer; user-select: none; }
+        .tap-hint { font-size: 0.95rem; color: #64748b; margin-top: 25px; font-weight: 500;}
+        .flex-row { display: flex; gap: 12px; width: 100%; }
+        .flex-col-center { display: flex; flex-direction: column; align-items: center; width: 100%; }
     </style>
 </head>
 <body>
@@ -79,74 +183,133 @@
     <!-- ШАГ 1: ВЫБОР СЛОВАРЯ -->
     <div id="dict-menu-screen">
         <p class="block-info">Выберите набор для изучения:</p>
-        
-        <div class="flex-row">
-            <button class="btn btn-warning" id="btn-dict-hard" style="margin-bottom: 0;">🔥 Трудные слова (0)</button>
-            <button class="btn btn-danger" id="btn-clear-hard" style="margin-bottom: 0; padding: 18px 15px; width: auto;" title="Очистить трудые слова">🗑️</button>
+        <div class="menu-list">
+            <div class="flex-row">
+                <button class="btn-aesthetic accent-hard" id="btn-dict-hard" style="flex-grow: 1;">🔥 Трудные слова (0)</button>
+                <button class="btn-danger-icon" id="btn-clear-hard" title="Очистить">🗑️</button>
+            </div>
+            
+            <button class="btn-aesthetic accent-big" id="btn-dict-big">1.2 Большой словарь (86 шт)</button>
+            <button class="btn-aesthetic accent-small" id="btn-dict-small">1.2.1 Малый словарь (35 шт)</button>
+            <button class="btn-aesthetic accent-phrases" id="btn-dict-phrases">1.2.2 Словосочетания (23 шт)</button>
         </div>
+    </div>
 
-        <button class="btn btn-check" id="btn-dict-phrases">Словосочетания (23 шт)</button>
-        <button class="btn" id="btn-dict-big">Большой словарь (86 шт)</button>
-        <button class="btn" id="btn-dict-small">Малый словарь (35 шт)</button>
+    <!-- ШАГ 1.5: ПРЕДПРОСМОТР СЛОВАРЯ -->
+    <div id="preview-screen" class="hidden">
+        <p class="block-info" id="preview-title" style="color: #60a5fa; font-size: 1.1rem;"></p>
+        <div class="preview-list" id="preview-list-container"></div>
+        <button class="btn-aesthetic accent-big" id="btn-to-modes" style="margin-bottom: 5px;">⚙️ Выбрать режим</button>
+        <button class="btn-secondary" id="btn-to-main-from-preview">🏠 На главную</button>
     </div>
 
     <!-- ШАГ 2: ВЫБОР РЕЖИМА -->
     <div id="mode-menu-screen" class="hidden">
         <p class="block-info" id="selected-dict-info"></p>
-        <button class="btn" id="btn-mode-en-ru">📇 Карточки: Англ ➔ Рус</button>
-        <button class="btn" id="btn-mode-ru-en">📇 Карточки: Рус ➔ Англ</button>
-        <button class="btn btn-check" id="btn-mode-cram">✍️ Режим Зубрёжки</button>
-        <button class="btn btn-secondary" id="btn-back-to-dicts">🔙 Назад к выбору словаря</button>
+        <div class="menu-list">
+            <button class="btn-aesthetic accent-smart" id="btn-mode-smart-en">🧠 Умное заучивание (Англ ➔ Рус)</button>
+            <button class="btn-aesthetic accent-smart" id="btn-mode-smart-ru">🧠 Умное заучивание (Рус ➔ Англ)</button>
+            <hr style="width: 80%; border: 0; border-top: 1px solid #2a2f3a; margin: 5px auto;">
+            <button class="btn-aesthetic" id="btn-mode-en-ru">📇 Карточки: Англ ➔ Рус</button>
+            <button class="btn-aesthetic" id="btn-mode-ru-en">📇 Карточки: Рус ➔ Англ</button>
+        </div>
+        <div class="flex-row">
+            <button class="btn-secondary" id="btn-to-preview-from-mode" style="flex: 1;">🔙 К списку</button>
+            <button class="btn-secondary" id="btn-to-main-from-mode" style="flex: 1;">🏠 На главную</button>
+        </div>
     </div>
 
     <!-- РЕЖИМ КАРТОЧЕК -->
     <div id="flashcard-screen" class="hidden">
         <div class="block-info" id="fc-counter"></div>
+        
         <div class="card flashcard-interactive" id="fc-card">
-            <div class="phrase-main">
-                <span id="fc-front"></span>
+            <div id="fc-front-container" class="flex-col-center">
+                <div class="phrase-main" id="fc-front"></div>
+                <div class="transcription hidden" id="fc-tr-front"></div>
                 <button class="speak-btn hidden" id="fc-speak-front">🔊</button>
+                <div class="tap-hint">Тапните, чтобы перевернуть 🔄</div>
             </div>
-            <div class="transcription hidden" id="fc-tr-front"></div>
             
-            <div class="phrase-sub hidden" id="fc-back-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;">
-                <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-                    <span id="fc-back"></span>
-                    <button class="speak-btn hidden" id="fc-speak-back">🔊</button>
-                </div>
+            <div id="fc-back-container" class="hidden flex-col-center">
+                <div class="phrase-sub" id="fc-back"></div>
                 <div class="transcription hidden" id="fc-tr-back"></div>
+                <button class="speak-btn hidden" id="fc-speak-back">🔊</button>
+                <div class="tap-hint">Тапните, чтобы вернуть 🔄</div>
             </div>
-            
-            <div class="tap-hint" id="fc-hint">Нажмите на карточку, чтобы перевернуть</div>
-            <div class="swipe-hint" id="fc-swipe-hint">Свайп влево ⬅️ Не помню | Помню ➡️ Свайп вправо</div>
         </div>
-        <button class="btn btn-secondary" id="btn-back-fc">🔙 Вернуться к режимам</button>
+
+        <div class="card-controls">
+            <button class="btn-action btn-nope" id="btn-fc-nope">❌ Не помню</button>
+            <button class="btn-action btn-yep" id="btn-fc-yep">✅ Помню</button>
+        </div>
+        
+        <div class="flex-row">
+            <button class="btn-secondary" id="btn-back-fc" style="flex: 1;">🔙 Режимы</button>
+            <button class="btn-secondary" id="btn-home-fc" style="flex: 1;">🏠 На главную</button>
+        </div>
     </div>
 
-    <!-- РЕЖИМ ЗУБРЁЖКИ -->
-    <div id="cramming-screen" class="hidden">
-        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="block-info" id="blockInfo"></div>
+    <!-- УМНОЕ ЗАУЧИВАНИЕ (QUIZLET MODE) -->
+    <div id="smart-screen" class="hidden">
+        <div class="smart-stats-header">
+            <span class="sm-stat-gray">Осталось: <span id="sm-rem-count"></span></span>
+            <span class="sm-stat-orange">Знакомые: <span id="sm-fam-count"></span></span>
+            <span class="sm-stat-green">Усвоенные: <span id="sm-mas-count"></span></span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="sm-progressFill"></div></div>
 
-        <div class="card" id="cardArea">
-            <div class="phrase-sub" id="ruText" style="margin-bottom: 15px;"></div>
-            <div class="phrase-main hidden">
-                <span id="enText"></span>
-                <button class="speak-btn" id="cram-speak-btn">🔊</button>
+        <div class="card" id="sm-cardArea" style="min-height: 280px; justify-content: flex-start; padding-top: 30px;">
+            <div class="phrase-sub" id="sm-question-ru" style="margin-bottom: 10px;"></div>
+            
+            <div class="phrase-main" id="sm-question-en"></div>
+            <div class="transcription hidden" id="sm-tr"></div>
+            <button class="speak-btn hidden" id="sm-speak-btn" style="margin-bottom: 20px;">🔊</button>
+            
+            <!-- Зона тестов (MCQ) -->
+            <div class="mcq-container hidden" id="sm-mcq-area"></div>
+            
+            <!-- Зона письма (Written) -->
+            <div id="sm-written-area" class="hidden" style="width: 100%; margin-top: 15px;">
+                <input type="text" id="sm-answerInput" placeholder="Введите ответ..." autocomplete="off" autocorrect="off" autocapitalize="none">
+                <button class="btn-aesthetic accent-smart" id="sm-checkBtn">Проверить</button>
             </div>
-            <div class="transcription hidden" id="cram-tr"></div>
             
-            <input type="text" id="answerInput" class="hidden" placeholder="Введите перевод..." autocomplete="off" autocorrect="off" autocapitalize="none">
-            
-            <div class="status-text" id="statusText"></div>
-            
-            <div style="width: 100%; display: flex; flex-direction: column; gap: 10px;">
-                <button class="btn hidden" id="nextReviewBtn">Понятно, дальше</button>
-                <button class="btn btn-check hidden" id="checkBtn">Проверить</button>
-                <button class="btn hidden" id="nextTestBtn">Дальше</button>
+            <div class="status-text" id="sm-statusText" style="margin-top: 20px;"></div>
+            <button class="btn-aesthetic hidden" id="sm-nextBtn">Дальше</button>
+        </div>
+        
+        <div class="flex-row">
+            <button class="btn-secondary" id="btn-back-sm" style="flex: 1;">🔙 Режимы</button>
+            <button class="btn-secondary" id="btn-home-sm" style="flex: 1;">🏠 На главную</button>
+        </div>
+    </div>
+
+    <!-- ИТОГОВЫЙ ЭКРАН СТАТИСТИКИ -->
+    <div id="stats-screen" class="hidden" style="width: 100%;">
+        <div class="stat-title" id="stats-title-msg">Вы усердный ученик!<br>Продолжайте осваивать сложные термины.</div>
+        <p class="block-info" style="text-align: left; margin-top: 20px; margin-bottom: 5px;">Ваш прогресс</p>
+        
+        <div class="stats-container">
+            <div class="donut-wrapper" id="stats-donut">
+                <div class="donut-inner" id="stats-percent">100%</div>
+            </div>
+            <div class="stats-bars">
+                <div class="stat-bar bar-green"><span>Знаю</span> <span id="stats-known">0</span></div>
+                <div class="stat-bar bar-orange"><span>Ошибок</span> <span id="stats-learning">0</span></div>
+                <div class="stat-bar bar-gray"><span>Всего</span> <span id="stats-remaining">0</span></div>
             </div>
         </div>
-        <button class="btn btn-secondary" id="btn-back-cram">🔙 Вернуться к режимам</button>
+
+        <div class="menu-list" style="margin-top: 20px;">
+            <button class="btn-aesthetic accent-big" id="btn-stats-restart">🔄 Начать заново</button>
+            <button class="btn-secondary" id="btn-stats-menu">🏠 Главное меню</button>
+        </div>
+    </div>
+
+    <!-- ЭСТЕТИЧНЫЙ ФУТЕР -->
+    <div class="footer">
+        ✦ STUDY PRO ✦
     </div>
 </div>
 
@@ -179,242 +342,187 @@
             { en: "to forecast future conditions", ru: "прогнозировать будущие условия", tr: "[ˈfɔːkɑːst]" }
         ];
 
-        // Восстановленный полный словарь на 86 слов
         const dictWordsBig = [
-            { en: "activities", ru: "действия, деятельность" },
-            { en: "peripheral activities", ru: "второстепенная деятельность", tr: "[pəˈrɪfərəl]" },
-            { en: "attain", ru: "достигать, добиваться", tr: "[əˈteɪn]" },
-            { en: "attain objectives/goals", ru: "достигать целей" },
-            { en: "authority", ru: "власть; полномочие", tr: "[ɔːˈθɒrɪti]" },
-            { en: "authorize", ru: "уполномочивать; разрешать", tr: "[ˈɔːθəraɪz]" },
-            { en: "command", ru: "команда, приказ", tr: "[kəˈmɑːnd]" },
-            { en: "chain of command", ru: "цепь инстанций, порядок субординации" },
-            { en: "communicate", ru: "общаться; сообщать", tr: "[kəˈmjuːnɪkeɪt]" },
-            { en: "communication", ru: "система информационных потоков в организации" },
-            { en: "communications channels", ru: "каналы передачи информации" },
-            { en: "consistency", ru: "системность, последовательность", tr: "[kənˈsɪstənsi]" },
-            { en: "consistent", ru: "сообразный, согласующийся" },
-            { en: "contingency", ru: "непредвиденное обстоятельство", tr: "[kənˈtɪndʒənsi]" },
-            { en: "control", ru: "управлять, контролировать" },
-            { en: "Controlling", ru: "совокупность анализа и контроля" },
-            { en: "span of control", ru: "норма управляемости" },
-            { en: "delegate", ru: "делегировать полномочия, поручать" },
-            { en: "delegation", ru: "делегирование; передача полномочий" },
-            { en: "department", ru: "отдел" },
-            { en: "line department", ru: "линейный отдел" },
-            { en: "operate a department", ru: "управлять отделом" },
-            { en: "departmentalize", ru: "разбивать организацию на функциональные отделы", tr: "[ˌdiːpɑːtˈmentəlaɪz]" },
-            { en: "deviate", ru: "отклоняться", tr: "[ˈdiːvieɪt]" },
-            { en: "deviation", ru: "отклонение" },
-            { en: "deviation from budgeted results", ru: "отклонение от запланированных результатов" },
-            { en: "direct", ru: "направлять, руководить" },
-            { en: "Directing", ru: "руководство" },
-            { en: "disturbance", ru: "беспорядки, конфликты, нарушения", tr: "[dɪsˈtɜːbəns]" },
-            { en: "disturbance handler", ru: "наладчик по беспорядкам" },
-            { en: "division", ru: "подразделение" },
-            { en: "environment", ru: "среда; условия деятельности; правовая база", tr: "[ɪnˈvaɪrənmənt]" },
-            { en: "business environment", ru: "экономическая обстановка; деловая среда" },
-            { en: "exert", ru: "оказать давление", tr: "[ɪɡˈzɜːt]" },
-            { en: "exert effort", ru: "прилагать усилия" },
-            { en: "expend", ru: "тратить, расходовать", tr: "[ɪkˈspend]" },
-            { en: "expend efforts", ru: "затрачивать усилия" },
-            { en: "framework", ru: "основа, база, законодательные рамки" },
-            { en: "function", ru: "функция" },
-            { en: "perform a function", ru: "выполнять функцию" },
-            { en: "govern", ru: "управлять; регулировать; руководить" },
-            { en: "governance", ru: "управление; руководство; власть", tr: "[ˈɡʌvənəns]" },
-            { en: "corporate governance", ru: "корпоративное управление" },
-            { en: "hierarchy", ru: "иерархия", tr: "[ˈhaɪərɑːki]" },
-            { en: "hierarchical", ru: "иерархический", tr: "[ˌhaɪəˈrɑːkɪkl]" },
-            { en: "horizon", ru: "горизонт; кругозор", tr: "[həˈraɪzn]" },
-            { en: "to broaden one's horizons", ru: "расширять свой кругозор" },
-            { en: "time horizon", ru: "горизонт прогнозирования" },
-            { en: "horizontal", ru: "горизонтальный" },
-            { en: "horizontal communication", ru: "горизонтальная коммуникация" },
-            { en: "implement", ru: "реализовать; осуществлять", tr: "[ˈɪmplɪmənt]" },
-            { en: "incentive", ru: "стимул", tr: "[ɪnˈsentɪv]" },
-            { en: "monetary incentives", ru: "денежные стимулы" },
-            { en: "interconnected", ru: "взаимосвязанный", tr: "[ˌɪntəkəˈnektɪd]" },
-            { en: "job", ru: "место работы; должность" },
-            { en: "job description", ru: "должностные обязанности" },
-            { en: "job enlargement", ru: "расширение обязанностей" },
-            { en: "job enrichment", ru: "расширение полномочий", tr: "[ɪnˈrɪtʃmənt]" },
-            { en: "job rotation", ru: "ротация должностей" },
-            { en: "manage", ru: "управлять; руководить" },
-            { en: "management", ru: "управление, менеджмент" },
-            { en: "senior management", ru: "высшее руководство" },
-            { en: "middle management", ru: "руководство среднего звена" },
-            { en: "supervisory management", ru: "группа менеджеров, несущих прямую ответственность" },
-            { en: "manpower", ru: "личный состав, кадры" },
-            { en: "manpower plan", ru: "план комплектования кадров" },
-            { en: "organization", ru: "организация; структура" },
-            { en: "matrix organization", ru: "матричная организация" },
-            { en: "line and staff organization", ru: "линейно-функциональная организация" },
-            { en: "performance", ru: "выполнение, исполнение; результативность" },
-            { en: "company's performance", ru: "результативность деятельности фирмы" },
-            { en: "permeate", ru: "распространять, охватывать" },
-            { en: "personnel", ru: "штат, кадры, личный состав" },
-            { en: "procedure", ru: "порядок действий, алгоритм" },
-            { en: "policies and procedures", ru: "принципы и порядок; стратегии и процедуры" },
-            { en: "regulate", ru: "регулировать; регламентировать" },
-            { en: "regulation", ru: "положение, предписание; орган контроля" },
-            { en: "skill", ru: "искусство, мастерство, умение, навык" },
-            { en: "interpersonal skills", ru: "навыки межличностного общения" },
-            { en: "train staff", ru: "обучать персонал" },
-            { en: "subordinate", ru: "подчиненный" },
-            { en: "techniques", ru: "методы" },
-            { en: "staff", ru: "штат, кадры" },
-            { en: "staffing", ru: "кадровое обеспечение" },
-            { en: "staffing position", ru: "штатная единица; укомплектованность штатами" },
-            { en: "unit", ru: "структурная единица" }
+            { en: "activities", ru: "действия, деятельность" }, { en: "peripheral activities", ru: "второстепенная деятельность", tr: "[pəˈrɪfərəl]" },
+            { en: "attain", ru: "достигать, добиваться", tr: "[əˈteɪn]" }, { en: "attain objectives/goals", ru: "достигать целей" },
+            { en: "authority", ru: "власть; полномочие", tr: "[ɔːˈθɒrɪti]" }, { en: "authorize", ru: "уполномочивать; разрешать", tr: "[ˈɔːθəraɪz]" },
+            { en: "command", ru: "команда, приказ", tr: "[kəˈmɑːnd]" }, { en: "chain of command", ru: "цепь инстанций, порядок субординации" },
+            { en: "communicate", ru: "общаться; сообщать", tr: "[kəˈmjuːnɪkeɪt]" }, { en: "communication", ru: "система информационных потоков" },
+            { en: "communications channels", ru: "каналы передачи информации" }, { en: "consistency", ru: "системность, последовательность", tr: "[kənˈsɪstənsi]" },
+            { en: "consistent", ru: "сообразный, согласующийся" }, { en: "contingency", ru: "непредвиденное обстоятельство", tr: "[kənˈtɪndʒənsi]" },
+            { en: "control", ru: "управлять, контролировать" }, { en: "Controlling", ru: "совокупность анализа и контроля" },
+            { en: "span of control", ru: "норма управляемости" }, { en: "delegate", ru: "делегировать полномочия, поручать" },
+            { en: "delegation", ru: "делегирование; передача полномочий" }, { en: "department", ru: "отдел" },
+            { en: "line department", ru: "линейный отдел" }, { en: "operate a department", ru: "управлять отделом" },
+            { en: "departmentalize", ru: "разбивать на отделы", tr: "[ˌdiːpɑːtˈmentəlaɪz]" }, { en: "deviate", ru: "отклоняться", tr: "[ˈdiːvieɪt]" },
+            { en: "deviation", ru: "отклонение" }, { en: "deviation from budgeted results", ru: "отклонение от запланированных результатов" },
+            { en: "direct", ru: "направлять, руководить" }, { en: "Directing", ru: "руководство" },
+            { en: "disturbance", ru: "беспорядки, конфликты", tr: "[dɪsˈtɜːbəns]" }, { en: "disturbance handler", ru: "наладчик по беспорядкам" },
+            { en: "division", ru: "подразделение" }, { en: "environment", ru: "среда; условия деятельности", tr: "[ɪnˈvaɪrənmənt]" },
+            { en: "business environment", ru: "экономическая обстановка" }, { en: "exert", ru: "оказать давление", tr: "[ɪɡˈzɜːt]" },
+            { en: "exert effort", ru: "прилагать усилия" }, { en: "expend", ru: "тратить, расходовать", tr: "[ɪkˈspend]" },
+            { en: "expend efforts", ru: "затрачивать усилия" }, { en: "framework", ru: "основа, база, рамки" },
+            { en: "function", ru: "функция" }, { en: "perform a function", ru: "выполнять функцию" },
+            { en: "govern", ru: "управлять; регулировать" }, { en: "governance", ru: "управление; руководство", tr: "[ˈɡʌvənəns]" },
+            { en: "corporate governance", ru: "корпоративное управление" }, { en: "hierarchy", ru: "иерархия", tr: "[ˈhaɪərɑːki]" },
+            { en: "hierarchical", ru: "иерархический", tr: "[ˌhaɪəˈrɑːkɪkl]" }, { en: "horizon", ru: "горизонт; кругозор", tr: "[həˈraɪzn]" },
+            { en: "to broaden one's horizons", ru: "расширять свой кругозор" }, { en: "time horizon", ru: "горизонт прогнозирования" },
+            { en: "horizontal", ru: "горизонтальный" }, { en: "horizontal communication", ru: "горизонтальная коммуникация" },
+            { en: "implement", ru: "реализовать; осуществлять", tr: "[ˈɪmplɪmənt]" }, { en: "incentive", ru: "стимул", tr: "[ɪnˈsentɪv]" },
+            { en: "monetary incentives", ru: "денежные стимулы" }, { en: "interconnected", ru: "взаимосвязанный", tr: "[ˌɪntəkəˈnektɪd]" },
+            { en: "job", ru: "место работы; должность" }, { en: "job description", ru: "должностные обязанности" },
+            { en: "job enlargement", ru: "расширение обязанностей" }, { en: "job enrichment", ru: "расширение полномочий", tr: "[ɪnˈrɪtʃmənt]" },
+            { en: "job rotation", ru: "ротация должностей" }, { en: "manage", ru: "управлять; руководить" },
+            { en: "management", ru: "управление, менеджмент" }, { en: "senior management", ru: "высшее руководство" },
+            { en: "middle management", ru: "руководство среднего звена" }, { en: "supervisory management", ru: "группа менеджеров" },
+            { en: "manpower", ru: "личный состав, кадры" }, { en: "manpower plan", ru: "план комплектования кадров" },
+            { en: "organization", ru: "организация; структура" }, { en: "matrix organization", ru: "матричная организация" },
+            { en: "line and staff organization", ru: "линейно-функциональная организация" }, { en: "performance", ru: "выполнение; результативность" },
+            { en: "company's performance", ru: "результативность деятельности фирмы" }, { en: "permeate", ru: "распространять, охватывать" },
+            { en: "personnel", ru: "штат, кадры, личный состав" }, { en: "procedure", ru: "порядок действий, алгоритм" },
+            { en: "policies and procedures", ru: "принципы и порядок" }, { en: "regulate", ru: "регулировать; регламентировать" },
+            { en: "regulation", ru: "положение, предписание" }, { en: "skill", ru: "искусство, мастерство, навык" },
+            { en: "interpersonal skills", ru: "навыки межличностного общения" }, { en: "train staff", ru: "обучать персонал" },
+            { en: "subordinate", ru: "подчиненный" }, { en: "techniques", ru: "методы" },
+            { en: "staff", ru: "штат, кадры" }, { en: "staffing", ru: "кадровое обеспечение" },
+            { en: "staffing position", ru: "штатная единица" }, { en: "unit", ru: "структурная единица" }
         ];
 
         const dictWordsSmall = [
-            { en: "accomplish", ru: "выполнять, достигать", tr: "[əˈkʌmplɪʃ]" },
-            { en: "ambiguity", ru: "двусмысленность, неопределенность", tr: "[ˌæmbɪˈɡjuːəti]" },
-            { en: "authority", ru: "власть, полномочия", tr: "[ɔːˈθɒrɪti]" },
-            { en: "awareness", ru: "осведомленность", tr: "[əˈweənəs]" },
-            { en: "command", ru: "команда, приказ", tr: "[kəˈmɑːnd]" },
-            { en: "consistency", ru: "последовательность", tr: "[kənˈsɪstənsi]" },
-            { en: "contingencies", ru: "непредвиденные обстоятельства", tr: "[kənˈtɪndʒənsiz]" },
-            { en: "departmentalize", ru: "разделять на отделы", tr: "[ˌdiːpɑːtˈmentəlaɪz]" },
-            { en: "effort", ru: "усилие" },
-            { en: "emphasis", ru: "акцент, особое внимание", tr: "[ˈemfəsɪс]" },
-            { en: "enrichment", ru: "обогащение", tr: "[ɪnˈrɪtʃmənt]" },
-            { en: "enlargement", ru: "расширение", tr: "[ɪnˈlɑːdʒmənt]" },
-            { en: "environment", ru: "среда, окружение", tr: "[ɪnˈvaɪrənmənt]" },
-            { en: "exert", ru: "прилагать, проявлять", tr: "[ɪɡˈzɜːt]" },
-            { en: "expend", ru: "тратить, расходовать", tr: "[ɪkˈspend]" },
-            { en: "govern", ru: "управлять, руководить" },
-            { en: "guide", ru: "направлять, руководить" },
-            { en: "hierarchy", ru: "иерархия", tr: "[ˈhaɪərɑːki]" },
-            { en: "hierarchical", ru: "иерархический", tr: "[ˌhaɪəˈrɑːkɪkl]" },
-            { en: "horizon", ru: "горизонт", tr: "[həˈraɪzn]" },
-            { en: "horizontal", ru: "горизонтальный" },
-            { en: "incentive", ru: "стимул, поощрение", tr: "[ɪnˈsentɪv]" },
-            { en: "inspire", ru: "вдохновлять", tr: "[ɪnˈspaɪə]" },
-            { en: "junior", ru: "младший" },
-            { en: "peripheral activities", ru: "второстепенная деятельность", tr: "[pəˈrɪfərəl]" },
-            { en: "permeate", ru: "проникать, распространяться", tr: "[ˈpɜːmieɪt]" },
-            { en: "personal", ru: "личный, персональный" },
-            { en: "personnel", ru: "персонал, кадры", tr: "[ˌpɜːsəˈnel]" },
-            { en: "procedure", ru: "процедура, порядок действий", tr: "[prəˈsiːdʒə]" },
-            { en: "senior", ru: "старший, высший" },
-            { en: "specify", ru: "точно определять, указывать" },
-            { en: "subordinate", ru: "подчиненный", tr: "[səˈbɔːdɪnɪt]" },
-            { en: "supervisory", ru: "контролирующий, надзорный", tr: "[ˌsuːpəˈvaɪzəri]" },
-            { en: "techniques", ru: "методы, приемы", tr: "[tekˈniːks]" },
+            { en: "accomplish", ru: "выполнять, достигать", tr: "[əˈkʌmplɪʃ]" }, { en: "ambiguity", ru: "двусмысленность", tr: "[ˌæmbɪˈɡjuːəti]" },
+            { en: "authority", ru: "власть, полномочия", tr: "[ɔːˈθɒrɪti]" }, { en: "awareness", ru: "осведомленность", tr: "[əˈweənəs]" },
+            { en: "command", ru: "команда, приказ", tr: "[kəˈmɑːnd]" }, { en: "consistency", ru: "последовательность", tr: "[kənˈsɪstənsi]" },
+            { en: "contingencies", ru: "непредвиденные обстоятельства", tr: "[kənˈtɪndʒənsiz]" }, { en: "departmentalize", ru: "разделять на отделы", tr: "[ˌdiːpɑːtˈmentəlaɪz]" },
+            { en: "effort", ru: "усилие" }, { en: "emphasis", ru: "акцент, особое внимание", tr: "[ˈemfəsɪс]" },
+            { en: "enrichment", ru: "обогащение", tr: "[ɪnˈrɪtʃmənt]" }, { en: "enlargement", ru: "расширение", tr: "[ɪnˈlɑːdʒmənt]" },
+            { en: "environment", ru: "среда, окружение", tr: "[ɪnˈvaɪrənmənt]" }, { en: "exert", ru: "прилагать, проявлять", tr: "[ɪɡˈzɜːt]" },
+            { en: "expend", ru: "тратить, расходовать", tr: "[ɪkˈspend]" }, { en: "govern", ru: "управлять, руководить" },
+            { en: "guide", ru: "направлять, руководить" }, { en: "hierarchy", ru: "иерархия", tr: "[ˈhaɪərɑːki]" },
+            { en: "hierarchical", ru: "иерархический", tr: "[ˌhaɪəˈrɑːkɪkl]" }, { en: "horizon", ru: "горизонт", tr: "[həˈraɪzn]" },
+            { en: "horizontal", ru: "горизонтальный" }, { en: "incentive", ru: "стимул, поощрение", tr: "[ɪnˈsentɪv]" },
+            { en: "inspire", ru: "вдохновлять", tr: "[ɪnˈspaɪə]" }, { en: "junior", ru: "младший" },
+            { en: "peripheral activities", ru: "второстепенная деятельность", tr: "[pəˈrɪfərəl]" }, { en: "permeate", ru: "проникать, распространяться", tr: "[ˈpɜːmieɪt]" },
+            { en: "personal", ru: "личный, персональный" }, { en: "personnel", ru: "персонал, кадры", tr: "[ˌpɜːsəˈnel]" },
+            { en: "procedure", ru: "процедура", tr: "[prəˈsiːdʒə]" }, { en: "senior", ru: "старший, высший" },
+            { en: "specify", ru: "точно определять, указывать" }, { en: "subordinate", ru: "подчиненный", tr: "[səˈbɔːdɪnɪt]" },
+            { en: "supervisory", ru: "контролирующий, надзорный", tr: "[ˌsuːpəˈvaɪzəri]" }, { en: "techniques", ru: "методы, приемы", tr: "[tekˈniːks]" },
             { en: "unify", ru: "объединять", tr: "[ˈjuːnɪfaɪ]" }
         ];
 
-        // --- ЛОКАЛЬНОЕ СОХРАНЕНИЕ ---
+        // --- ЛОКАЛЬНОЕ СОХРАНЕНИЕ ТРУДНЫХ СЛОВ ---
         let hardWordsList = JSON.parse(localStorage.getItem('hardWords')) || [];
-        
         function updateHardWordsBtn() {
             const btn = document.getElementById('btn-dict-hard');
             btn.innerText = `🔥 Трудные слова (${hardWordsList.length})`;
             btn.disabled = hardWordsList.length === 0;
-            if(hardWordsList.length === 0) btn.style.opacity = '0.6';
+            if(hardWordsList.length === 0) btn.style.opacity = '0.4';
             else btn.style.opacity = '1';
         }
-        
         function saveHardWord(wordObj) {
-            const exists = hardWordsList.find(w => w.en === wordObj.en);
-            if (!exists) {
+            if (!hardWordsList.find(w => w.en === wordObj.en)) {
                 hardWordsList.push(wordObj);
                 localStorage.setItem('hardWords', JSON.stringify(hardWordsList));
                 updateHardWordsBtn();
             }
         }
-        
         document.getElementById('btn-clear-hard').addEventListener('click', () => {
             if(confirm('Очистить список трудных слов?')) {
-                hardWordsList = [];
-                localStorage.setItem('hardWords', JSON.stringify(hardWordsList));
-                updateHardWordsBtn();
+                hardWordsList = []; localStorage.setItem('hardWords', JSON.stringify(hardWordsList)); updateHardWordsBtn();
             }
         });
-        
         updateHardWordsBtn();
+
+        // --- СОХРАНЕНИЕ ПРОГРЕССА СЕССИИ ---
+        function getSessionKey(mode) { return `session_${activeDictName}_${mode}`; }
+        function saveSession(mode, stateObj) { localStorage.setItem(getSessionKey(mode), JSON.stringify(stateObj)); }
+        function loadSession(mode) { const saved = localStorage.getItem(getSessionKey(mode)); return saved ? JSON.parse(saved) : null; }
+        function clearSession(mode) { localStorage.removeItem(getSessionKey(mode)); }
 
         // --- ОЗВУЧКА ---
         function speakEnglish(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel(); 
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'en-US'; 
-                utterance.rate = 0.9;
-                
-                let voices = window.speechSynthesis.getVoices();
-                if (voices.length > 0) {
-                    let enVoice = voices.find(v => v.lang.startsWith('en'));
+                setTimeout(() => {
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = 'en-US'; utterance.rate = 0.9;
+                    let voices = window.speechSynthesis.getVoices();
+                    let enVoice = voices.find(v => v.lang.startsWith('en-US') || v.lang.startsWith('en'));
                     if (enVoice) utterance.voice = enVoice;
-                }
-                
-                window.speechSynthesis.speak(utterance);
-            } else {
-                alert("Ваш браузер не поддерживает озвучку.");
+                    window.speechSynthesis.speak(utterance);
+                }, 50);
             }
         }
-        
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.onvoiceschanged = function() {
-                window.speechSynthesis.getVoices();
-            };
-        }
+        if ('speechSynthesis' in window) { window.speechSynthesis.onvoiceschanged = function() { window.speechSynthesis.getVoices(); }; }
 
-        // --- СОСТОЯНИЕ ПРИЛОЖЕНИЯ ---
-        let currentDictionary = [];
-        let activeDictName = '';
-        let workingArray = []; 
-        let statsTotalMistakes = 0;
-        let wordsWithMistakes = new Set();
+        document.querySelectorAll('.speak-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation(); 
+                if (!smartScreen.classList.contains('hidden')) speakEnglish(smCurrent.word.en);
+                else speakEnglish(workingArray[fcIndex].en);
+            });
+        });
+
+        // --- НАВИГАЦИЯ И СОСТОЯНИЕ ---
+        let currentDictionary = []; let activeDictName = ''; let workingArray = []; let currentModeName = '';
         
-        const dictMenuScreen = document.getElementById('dict-menu-screen');
-        const modeMenuScreen = document.getElementById('mode-menu-screen');
-        const flashcardScreen = document.getElementById('flashcard-screen');
-        const crammingScreen = document.getElementById('cramming-screen');
+        const dictMenuScreen = document.getElementById('dict-menu-screen'); const previewScreen = document.getElementById('preview-screen');
+        const modeMenuScreen = document.getElementById('mode-menu-screen'); const flashcardScreen = document.getElementById('flashcard-screen');
+        const smartScreen = document.getElementById('smart-screen'); const statsScreen = document.getElementById('stats-screen'); 
         const appTitle = document.getElementById('app-title');
 
-        // --- НАВИГАЦИЯ ---
-        document.getElementById('btn-dict-hard').addEventListener('click', () => {
-            if(hardWordsList.length > 0) selectDictionary(hardWordsList, 'hard', 'Трудные слова');
-        });
-        document.getElementById('btn-dict-phrases').addEventListener('click', () => selectDictionary(dictPhrases, 'phrases', 'Словосочетания'));
-        document.getElementById('btn-dict-big').addEventListener('click', () => selectDictionary(dictWordsBig, 'big', 'Большой словарь'));
-        document.getElementById('btn-dict-small').addEventListener('click', () => selectDictionary(dictWordsSmall, 'small', 'Малый словарь'));
+        // Выбор словаря -> Предпросмотр
+        document.getElementById('btn-dict-hard').addEventListener('click', () => { if(hardWordsList.length > 0) openPreview(hardWordsList, 'hard', 'Трудные слова'); });
+        document.getElementById('btn-dict-big').addEventListener('click', () => openPreview(dictWordsBig, 'big', '1.2 Большой словарь'));
+        document.getElementById('btn-dict-small').addEventListener('click', () => openPreview(dictWordsSmall, 'small', '1.2.1 Малый словарь'));
+        document.getElementById('btn-dict-phrases').addEventListener('click', () => openPreview(dictPhrases, 'phrases', '1.2.2 Словосочетания'));
 
-        document.getElementById('btn-back-to-dicts').addEventListener('click', showDictMenu);
-        document.getElementById('btn-back-fc').addEventListener('click', returnToModes);
-        document.getElementById('btn-back-cram').addEventListener('click', returnToModes);
+        function openPreview(dict, id, name) {
+            currentDictionary = dict; activeDictName = id;
+            document.getElementById('preview-title').innerText = `${name} (${dict.length} шт):`;
+            const listContainer = document.getElementById('preview-list-container'); listContainer.innerHTML = '';
+            dict.forEach(item => {
+                const div = document.createElement('div'); div.className = 'preview-item';
+                div.innerHTML = `<span class="preview-en">${item.en}</span><span class="preview-ru">${item.ru}</span>`;
+                listContainer.appendChild(div);
+            });
+            appTitle.innerText = "📖 Предпросмотр"; dictMenuScreen.classList.add('hidden'); previewScreen.classList.remove('hidden');
+        }
+
+        const goMainMenu = () => {
+            window.speechSynthesis.cancel(); appTitle.innerText = "📚 Главное меню";
+            [previewScreen, modeMenuScreen, flashcardScreen, smartScreen, statsScreen].forEach(s => s.classList.add('hidden'));
+            dictMenuScreen.classList.remove('hidden');
+        };
+
+        document.getElementById('btn-to-main-from-preview').addEventListener('click', goMainMenu);
+        document.getElementById('btn-to-main-from-mode').addEventListener('click', goMainMenu);
+        document.getElementById('btn-home-fc').addEventListener('click', goMainMenu);
+        document.getElementById('btn-home-sm').addEventListener('click', goMainMenu);
+        document.getElementById('btn-stats-menu').addEventListener('click', goMainMenu);
+
+        document.getElementById('btn-to-modes').addEventListener('click', () => {
+            document.getElementById('selected-dict-info').innerHTML = `Словарь: <b style="color:#60a5fa">${document.getElementById('preview-title').innerText.split('(')[0]}</b>`;
+            appTitle.innerText = "⚙️ Выбор режима"; previewScreen.classList.add('hidden'); modeMenuScreen.classList.remove('hidden');
+        });
+
+        document.getElementById('btn-to-preview-from-mode').addEventListener('click', () => {
+            appTitle.innerText = "📖 Предпросмотр"; modeMenuScreen.classList.add('hidden'); previewScreen.classList.remove('hidden');
+        });
 
         function returnToModes() {
-            window.speechSynthesis.cancel();
-            showModeMenu();
-        }
-
-        function showDictMenu() {
-            appTitle.innerText = "📚 Главное меню";
-            dictMenuScreen.classList.remove('hidden');
-            modeMenuScreen.classList.add('hidden');
-            flashcardScreen.classList.add('hidden');
-            crammingScreen.classList.add('hidden');
-        }
-
-        function showModeMenu() {
-            appTitle.innerText = "⚙️ Выбор режима";
-            dictMenuScreen.classList.add('hidden');
+            window.speechSynthesis.cancel(); appTitle.innerText = "⚙️ Выбор режима";
+            [flashcardScreen, smartScreen].forEach(s => s.classList.add('hidden'));
             modeMenuScreen.classList.remove('hidden');
-            flashcardScreen.classList.add('hidden');
-            crammingScreen.classList.add('hidden');
         }
+        
+        document.getElementById('btn-back-fc').addEventListener('click', returnToModes);
+        document.getElementById('btn-back-sm').addEventListener('click', returnToModes);
 
-        function selectDictionary(dict, id, name) {
-            currentDictionary = dict;
-            activeDictName = id;
-            document.getElementById('selected-dict-info').innerHTML = `Выбран: <b>${name}</b><br><span style="font-size:0.9rem; font-weight:normal;">(Слова перемешаны)</span>`;
-            showModeMenu();
-        }
+        document.getElementById('btn-stats-restart').addEventListener('click', () => {
+            statsScreen.classList.add('hidden');
+            if(currentModeName.startsWith('smart')) startSmartLearning(currentModeName, true);
+            else startFlashcards(currentModeName, true);
+        });
 
         function shuffleArray(array) {
             let shuffled = [...array];
@@ -425,300 +533,271 @@
             return shuffled;
         }
 
-        // --- ЛОГИКА КАРТОЧЕК И СВАЙПОВ ---
-        let fcIndex = 0;
-        let fcMode = 'en-ru';
-        let fcFlipped = false;
+        function showEndStats(known, errors, total) {
+            [flashcardScreen, smartScreen].forEach(s => s.classList.add('hidden'));
+            appTitle.innerText = "📊 Итоги";
+            
+            let percent = Math.round((known / total) * 100) || 0;
+            document.getElementById('stats-percent').innerText = percent + "%";
+            document.getElementById('stats-donut').style.background = `conic-gradient(#10b981 ${percent}%, #1e222a 0)`;
+            
+            document.getElementById('stats-known').innerText = known;
+            document.getElementById('stats-learning').innerText = errors;
+            document.getElementById('stats-remaining').innerText = total;
+            
+            let titleMsg = document.getElementById('stats-title-msg');
+            if(percent >= 90) titleMsg.innerHTML = "Потрясающе!<br>Вы отлично справились.";
+            else if(percent >= 60) titleMsg.innerHTML = "Хорошая работа!<br>Продолжайте в том же духе.";
+            else titleMsg.innerHTML = "Главное — практика!<br>Повторите трудные слова.";
+            
+            statsScreen.classList.remove('hidden'); clearSession(currentModeName);
+        }
 
-        document.getElementById('btn-mode-en-ru').addEventListener('click', () => startFlashcards('en-ru'));
-        document.getElementById('btn-mode-ru-en').addEventListener('click', () => startFlashcards('ru-en'));
-        
-        document.getElementById('fc-card').addEventListener('click', function(e) {
-            if(e.target.classList.contains('speak-btn')) return;
-            flipCard();
+        // --- ЛОГИКА КАРТОЧЕК ---
+        let fcIndex = 0; let fcMode = 'en-ru'; let fcFlipped = false; let isAnimating = false; let fcStatsKnown = 0; let fcStatsErrors = 0;
+        const fcCard = document.getElementById('fc-card');
+        const frontContainer = document.getElementById('fc-front-container');
+        const backContainer = document.getElementById('fc-back-container');
+
+        document.getElementById('btn-mode-en-ru').addEventListener('click', () => initMode('en-ru'));
+        document.getElementById('btn-mode-ru-en').addEventListener('click', () => initMode('ru-en'));
+        document.getElementById('btn-mode-smart-en').addEventListener('click', () => initSmartMode('smart-en'));
+        document.getElementById('btn-mode-smart-ru').addEventListener('click', () => initSmartMode('smart-ru'));
+
+        function initMode(mode) {
+            currentModeName = mode;
+            const saved = loadSession(mode);
+            if (saved) {
+                if(confirm("У вас есть незаконченная сессия в этом режиме. Продолжить?")) {
+                    resumeFlashcards(mode, saved); return;
+                } else clearSession(mode); 
+            }
+            startFlashcards(mode, true);
+        }
+
+        fcCard.addEventListener('click', function(e) { if(isAnimating || e.target.closest('.speak-btn')) return; toggleCardFlip(); });
+        document.getElementById('btn-fc-nope').addEventListener('click', swipeLeftAction);
+        document.getElementById('btn-fc-yep').addEventListener('click', swipeRightAction);
+
+        document.addEventListener('keydown', function(e) {
+            if (!flashcardScreen.classList.contains('hidden') && !isAnimating) {
+                if (e.code === 'Space') { e.preventDefault(); toggleCardFlip(); } 
+                else if (e.code === 'ArrowLeft') swipeLeftAction();
+                else if (e.code === 'ArrowRight') swipeRightAction();
+            }
         });
 
-        let touchStartX = 0;
-        let touchEndX = 0;
-        const fcCard = document.getElementById('fc-card');
-
-        fcCard.addEventListener('touchstart', e => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, {passive: true});
-
+        let touchStartX = 0; let touchEndX = 0;
+        fcCard.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
         fcCard.addEventListener('touchend', e => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
+            if (isAnimating) return;
+            touchEndX = e.changedTouches[0].screenX; const threshold = 50;
+            if (Math.abs(touchEndX - touchStartX) > threshold) {
+                if (touchEndX < touchStartX - threshold) swipeLeftAction();
+                if (touchEndX > touchStartX + threshold) swipeRightAction();
+            }
         }, {passive: true});
 
-        function handleSwipe() {
-            const threshold = 50;
-            if (touchEndX < touchStartX - threshold) {
-                saveHardWord(workingArray[fcIndex]);
-                fcCard.style.backgroundColor = '#fee2e2'; 
-                setTimeout(() => { fcCard.style.backgroundColor = 'white'; nextFlashcard(); }, 200);
-            }
-            if (touchEndX > touchStartX + threshold) {
-                fcCard.style.backgroundColor = '#d1fae5'; 
-                setTimeout(() => { fcCard.style.backgroundColor = 'white'; nextFlashcard(); }, 200);
+        function swipeLeftAction() {
+            if(isAnimating) return; isAnimating = true; saveHardWord(workingArray[fcIndex]); fcStatsErrors++;
+            fcCard.classList.add('swipe-left'); setTimeout(() => resetCardAnimation(), 250);
+        }
+        function swipeRightAction() {
+            if(isAnimating) return; isAnimating = true; fcStatsKnown++;
+            fcCard.classList.add('swipe-right'); setTimeout(() => resetCardAnimation(), 250);
+        }
+        function resetCardAnimation() { fcCard.classList.remove('swipe-left', 'swipe-right'); nextFlashcard(); }
+
+        function toggleCardFlip() {
+            fcFlipped = !fcFlipped;
+            if (fcFlipped) {
+                frontContainer.classList.add('hidden'); backContainer.classList.remove('hidden');
+                if (fcMode === 'ru-en' && workingArray[fcIndex].tr) document.getElementById('fc-tr-back').classList.remove('hidden');
+            } else {
+                frontContainer.classList.remove('hidden'); backContainer.classList.add('hidden');
             }
         }
 
-        document.getElementById('fc-speak-front').addEventListener('click', () => speakEnglish(workingArray[fcIndex].en));
-        document.getElementById('fc-speak-back').addEventListener('click', () => speakEnglish(workingArray[fcIndex].en));
-
-        function startFlashcards(mode) {
+        function startFlashcards(mode, fresh) {
             fcMode = mode;
-            fcIndex = 0;
-            workingArray = shuffleArray(currentDictionary);
-            modeMenuScreen.classList.add('hidden');
-            flashcardScreen.classList.remove('hidden');
-            updateFlashcard();
+            if(fresh) { fcIndex = 0; fcStatsKnown = 0; fcStatsErrors = 0; workingArray = shuffleArray(currentDictionary); }
+            appTitle.innerText = "📇 Карточки"; modeMenuScreen.classList.add('hidden'); flashcardScreen.classList.remove('hidden');
+            fcCard.classList.remove('swipe-left', 'swipe-right'); updateFlashcard();
+        }
+
+        function resumeFlashcards(mode, savedData) {
+            fcMode = mode; fcIndex = savedData.fcIndex; workingArray = savedData.workingArray; fcStatsKnown = savedData.known; fcStatsErrors = savedData.errors;
+            appTitle.innerText = "📇 Карточки"; modeMenuScreen.classList.add('hidden'); flashcardScreen.classList.remove('hidden'); updateFlashcard();
         }
 
         function updateFlashcard() {
-            fcFlipped = false;
+            fcFlipped = false; isAnimating = false;
             document.getElementById('fc-counter').innerText = `${fcIndex + 1} / ${workingArray.length}`;
             const word = workingArray[fcIndex];
-            
-            const backContainer = document.getElementById('fc-back-container');
-            const frontSpeakBtn = document.getElementById('fc-speak-front');
-            const backSpeakBtn = document.getElementById('fc-speak-back');
-            const trFront = document.getElementById('fc-tr-front');
-            const trBack = document.getElementById('fc-tr-back');
+            const frontText = document.getElementById('fc-front'); const backText = document.getElementById('fc-back');
+            const trFront = document.getElementById('fc-tr-front'); const trBack = document.getElementById('fc-tr-back');
 
             if (fcMode === 'en-ru') {
-                document.getElementById('fc-front').innerText = word.en;
-                document.getElementById('fc-back').innerText = word.ru;
-                
-                if (word.tr) { trFront.innerText = word.tr; trFront.classList.remove('hidden'); }
-                else { trFront.classList.add('hidden'); }
-                trBack.classList.add('hidden');
-                
-                frontSpeakBtn.classList.remove('hidden');
-                backSpeakBtn.classList.add('hidden');
+                frontText.innerText = word.en; backText.innerText = word.ru;
+                if (word.tr) { trFront.innerText = word.tr; trFront.classList.remove('hidden'); } else trFront.classList.add('hidden');
+                trBack.classList.add('hidden'); document.getElementById('fc-speak-front').classList.remove('hidden'); document.getElementById('fc-speak-back').classList.add('hidden');
             } else {
-                document.getElementById('fc-front').innerText = word.ru;
-                document.getElementById('fc-back').innerText = word.en;
-                
-                trFront.classList.add('hidden');
-                if (word.tr) { trBack.innerText = word.tr; }
-                
-                frontSpeakBtn.classList.add('hidden');
-                backSpeakBtn.classList.remove('hidden');
+                frontText.innerText = word.ru; backText.innerText = word.en; trFront.classList.add('hidden');
+                if (word.tr) { trBack.innerText = word.tr; trBack.classList.remove('hidden'); } else trBack.classList.add('hidden');
+                document.getElementById('fc-speak-front').classList.add('hidden'); document.getElementById('fc-speak-back').classList.remove('hidden');
             }
-            
-            backContainer.classList.add('hidden');
-            document.getElementById('fc-hint').classList.remove('hidden');
-        }
-
-        function flipCard() {
-            if (!fcFlipped) {
-                document.getElementById('fc-back-container').classList.remove('hidden');
-                if(fcMode === 'ru-en' && workingArray[fcIndex].tr) {
-                    document.getElementById('fc-tr-back').classList.remove('hidden');
-                }
-                document.getElementById('fc-hint').classList.add('hidden');
-                fcFlipped = true;
-                
-                if (fcMode === 'ru-en') speakEnglish(workingArray[fcIndex].en);
-            }
+            frontContainer.classList.remove('hidden'); backContainer.classList.add('hidden');
+            saveSession(currentModeName, { workingArray, fcIndex, known: fcStatsKnown, errors: fcStatsErrors });
         }
 
         function nextFlashcard() {
-            fcIndex++;
-            if (fcIndex >= workingArray.length) {
-                alert("Словарь пройден! Начинаем заново.");
-                fcIndex = 0;
+            fcIndex++; if (fcIndex >= workingArray.length) showEndStats(fcStatsKnown, fcStatsErrors, workingArray.length); else updateFlashcard();
+        }
+
+        // --- УМНОЕ ЗАУЧИВАНИЕ (QUIZLET STYLE) ---
+        let smartRemaining = []; let smartActive = []; let smCurrent = null; let smDirection = 'smart-en';
+        let smTotal = 0; let smMastered = 0; let smErrorsTotal = 0;
+
+        const smArea = document.getElementById('sm-cardArea');
+        const smQRu = document.getElementById('sm-question-ru'); const smQEn = document.getElementById('sm-question-en');
+        const smTr = document.getElementById('sm-tr'); const smSpeak = document.getElementById('sm-speak-btn');
+        const smMcqArea = document.getElementById('sm-mcq-area'); const smWrittenArea = document.getElementById('sm-written-area');
+        const smInput = document.getElementById('sm-answerInput'); const smCheckBtn = document.getElementById('sm-checkBtn');
+        const smStatus = document.getElementById('sm-statusText'); const smNextBtn = document.getElementById('sm-nextBtn');
+
+        smCheckBtn.addEventListener('click', handleSmartWritten);
+        smNextBtn.addEventListener('click', nextSmartTask);
+        smInput.addEventListener("keyup", function(e) { if (e.key === "Enter") { smInput.blur(); if (!smCheckBtn.classList.contains('hidden')) handleSmartWritten(); else if (!smNextBtn.classList.contains('hidden')) nextSmartTask(); } });
+
+        function initSmartMode(mode) {
+            currentModeName = mode;
+            const saved = loadSession(mode);
+            if (saved) {
+                if(confirm("У вас есть незаконченная сессия в умном режиме. Продолжить?")) { resumeSmart(saved); return; } 
+                else clearSession(mode); 
             }
-            updateFlashcard();
+            startSmartLearning(mode, true);
         }
 
-        // --- ЛОГИКА ЗУБРЁЖКИ ---
-        let currentGlobalIndex = 0; 
-        let currentBlock = [];
-        let reviewQueue = [];
-        let testQueue = [];
-        let failedInBlock = [];
-        let currentWord = null;
-
-        const blockInfo = document.getElementById('blockInfo');
-        const ruText = document.getElementById('ruText');
-        const enTextParent = document.getElementById('enText').parentElement;
-        const enText = document.getElementById('enText');
-        const trCram = document.getElementById('cram-tr');
-        const answerInput = document.getElementById('answerInput');
-        const statusText = document.getElementById('statusText');
-        const nextReviewBtn = document.getElementById('nextReviewBtn');
-        const checkBtn = document.getElementById('checkBtn');
-        const nextTestBtn = document.getElementById('nextTestBtn');
-        const progressFill = document.getElementById('progressFill');
-
-        document.getElementById('btn-mode-cram').addEventListener('click', startCramming);
-        nextReviewBtn.addEventListener('click', showNextReview);
-        checkBtn.addEventListener('click', handleCheck);
-        nextTestBtn.addEventListener('click', showNextTest);
-        
-        document.getElementById('cram-speak-btn').addEventListener('click', () => speakEnglish(currentWord.en));
-
-        function startCramming() {
-            modeMenuScreen.classList.add('hidden');
-            crammingScreen.classList.remove('hidden');
+        function startSmartLearning(mode, fresh) {
+            smDirection = mode; appTitle.innerText = "🧠 Заучивание";
+            modeMenuScreen.classList.add('hidden'); smartScreen.classList.remove('hidden');
             
-            currentGlobalIndex = 0;
-            statsTotalMistakes = 0;
-            wordsWithMistakes.clear();
-            
-            workingArray = shuffleArray(currentDictionary);
-            loadNextBlock();
-        }
-
-        function updateProgress() {
-            progressFill.style.width = (currentGlobalIndex / workingArray.length) * 100 + '%';
-        }
-
-        function loadNextBlock() {
-            if (currentGlobalIndex >= workingArray.length) {
-                blockInfo.innerText = "🎉 Готово!";
-                let correctFirstTry = workingArray.length - wordsWithMistakes.size;
-                let accuracy = Math.round((correctFirstTry / workingArray.length) * 100) || 0;
-                
-                ruText.innerHTML = `
-                    <h2>🏁 Тренировка завершена!</h2>
-                    <div style="font-size: 1.1rem; color: #374151; margin-top: 15px; text-align: left; display: inline-block;">
-                        <ul style="padding-left: 20px; line-height: 1.8;">
-                            <li>Всего слов: <b>${workingArray.length}</b></li>
-                            <li>Точность: <b>${accuracy}%</b></li>
-                            <li>Ошибок: <b style="color: #ef4444;">${statsTotalMistakes}</b></li>
-                        </ul>
-                    </div>
-                `;
-                
-                enTextParent.classList.add('hidden');
-                trCram.classList.add('hidden');
-                answerInput.classList.add('hidden');
-                statusText.innerText = "";
-                checkBtn.classList.add('hidden');
-                nextReviewBtn.classList.add('hidden');
-                nextTestBtn.classList.add('hidden');
-                progressFill.style.width = '100%';
-                return;
+            if(fresh) {
+                smartRemaining = shuffleArray(currentDictionary).map(w => ({ word: w, level: 0 }));
+                smartActive = []; smMastered = 0; smErrorsTotal = 0; smTotal = smartRemaining.length;
             }
-            updateProgress();
+            nextSmartTask();
+        }
+
+        function resumeSmart(saved) {
+            smDirection = saved.dir; smartRemaining = saved.rem; smartActive = saved.act;
+            smMastered = saved.mas; smErrorsTotal = saved.err; smTotal = saved.tot;
+            appTitle.innerText = "🧠 Заучивание"; modeMenuScreen.classList.add('hidden'); smartScreen.classList.remove('hidden');
+            nextSmartTask();
+        }
+
+        function updateSmartUI() {
+            let actLevels = smartActive.map(x=>x.level);
+            let fam = actLevels.filter(l=>l===1).length;
+            let rem = smartRemaining.length + actLevels.filter(l=>l===0).length;
             
-            let blockSize = (activeDictName === 'phrases' || activeDictName === 'hard') ? 5 : 10;
-            currentBlock = workingArray.slice(currentGlobalIndex, currentGlobalIndex + blockSize);
-            const endNum = Math.min(currentGlobalIndex + blockSize, workingArray.length);
-            blockInfo.innerText = `Блок: ${currentGlobalIndex + 1} - ${endNum} из ${workingArray.length}`;
-            startReviewPhase(currentBlock);
-        }
-
-        function startReviewPhase(words) {
-            reviewQueue = [...words];
-            showNextReview();
-        }
-
-        function showNextReview() {
-            if (reviewQueue.length === 0) {
-                startTestPhase(currentBlock);
-                return;
-            }
-            currentWord = reviewQueue.shift();
-            ruText.innerText = currentWord.ru;
-            enText.innerText = currentWord.en;
+            document.getElementById('sm-rem-count').innerText = rem;
+            document.getElementById('sm-fam-count').innerText = fam;
+            document.getElementById('sm-mas-count').innerText = smMastered;
+            document.getElementById('sm-progressFill').style.width = (smMastered / smTotal) * 100 + '%';
             
-            if (currentWord.tr) { trCram.innerText = currentWord.tr; trCram.classList.remove('hidden'); }
-            else { trCram.classList.add('hidden'); }
+            saveSession(currentModeName, { dir: smDirection, rem: smartRemaining, act: smartActive, mas: smMastered, err: smErrorsTotal, tot: smTotal });
+        }
 
-            enTextParent.classList.remove('hidden');
-            answerInput.classList.add('hidden');
-            statusText.innerText = "Запомните перевод";
-            statusText.style.color = "#4b5563";
+        function nextSmartTask() {
+            if (smartActive.length === 0 && smartRemaining.length === 0) { showEndStats(smMastered, smErrorsTotal, smTotal); return; }
             
-            nextReviewBtn.classList.remove('hidden');
-            checkBtn.classList.add('hidden');
-            nextTestBtn.classList.add('hidden');
+            while(smartActive.length < 7 && smartRemaining.length > 0) smartActive.push(smartRemaining.shift());
             
-            speakEnglish(currentWord.en);
-        }
-
-        function startTestPhase(words) {
-            testQueue = [...words];
-            failedInBlock = [];
-            showNextTest();
-        }
-
-        function showNextTest() {
-            if (testQueue.length === 0) {
-                if (failedInBlock.length > 0) {
-                    statusText.innerText = "Повторяем ошибки!";
-                    setTimeout(() => {
-                        currentBlock = [...failedInBlock];
-                        startReviewPhase(currentBlock);
-                    }, 1000);
-                } else {
-                    let blockSize = (activeDictName === 'phrases' || activeDictName === 'hard') ? 5 : 10;
-                    currentGlobalIndex += blockSize;
-                    loadNextBlock();
-                }
-                return;
-            }
-            currentWord = testQueue.shift();
-            ruText.innerText = currentWord.ru;
-            enTextParent.classList.add('hidden');
-            trCram.classList.add('hidden');
-            answerInput.classList.remove('hidden');
-            answerInput.value = "";
-            answerInput.className = "";
-            statusText.innerText = "";
+            smCurrent = smartActive.shift();
+            updateSmartUI();
             
-            nextReviewBtn.classList.add('hidden');
-            checkBtn.classList.remove('hidden');
-            nextTestBtn.classList.add('hidden');
-        }
-
-        function normalizeText(text) {
-            return text.toLowerCase().trim().replace(/\s+/g, ' ');
-        }
-
-        function handleCheck() {
-            const userAnswer = normalizeText(answerInput.value);
-            const correctAnswer = normalizeText(currentWord.en);
-
-            if (userAnswer === correctAnswer) {
-                answerInput.classList.add('correct');
-                statusText.innerText = "✅ Верно!";
-                statusText.style.color = "#10b981";
-                checkBtn.classList.add('hidden');
-                
-                speakEnglish(currentWord.en); 
-                setTimeout(showNextTest, 1200);
+            smQRu.innerText = ""; smQEn.innerText = ""; smTr.classList.add('hidden'); smSpeak.classList.add('hidden');
+            smMcqArea.classList.add('hidden'); smWrittenArea.classList.add('hidden'); smNextBtn.classList.add('hidden');
+            smStatus.innerText = ""; smInput.className = ""; smInput.value = "";
+            
+            let isEnToRu = smDirection === 'smart-en';
+            
+            if (isEnToRu) {
+                smQEn.innerText = smCurrent.word.en; smSpeak.classList.remove('hidden');
+                if (smCurrent.word.tr) { smTr.innerText = smCurrent.word.tr; smTr.classList.remove('hidden'); }
             } else {
-                statsTotalMistakes++;
-                wordsWithMistakes.add(currentWord.en);
-                saveHardWord(currentWord); 
-                
-                answerInput.classList.add('wrong');
-                statusText.innerHTML = `❌ Ошибка.<br>Правильно: <br><span style="color:#2563eb; font-weight:bold; font-size:1.1rem; margin-top:5px; display:inline-block;">${currentWord.en}</span>`;
-                statusText.style.color = "#ef4444";
-                failedInBlock.push(currentWord);
-                checkBtn.classList.add('hidden');
-                nextTestBtn.classList.remove('hidden');
-                
-                speakEnglish(currentWord.en); 
+                smQEn.innerText = smCurrent.word.ru; 
+            }
+
+            if (smCurrent.level === 0) renderMCQ(isEnToRu);
+            else if (smCurrent.level === 1) {
+                smWrittenArea.classList.remove('hidden'); smCheckBtn.classList.remove('hidden');
+                setTimeout(() => smInput.focus(), 100);
             }
         }
 
-        answerInput.addEventListener("keyup", function(event) {
-            if (event.key === "Enter") {
-                answerInput.blur();
-                if (!checkBtn.classList.contains('hidden')) {
-                    handleCheck();
-                } else if (!nextTestBtn.classList.contains('hidden')) {
-                    showNextTest();
-                }
+        function renderMCQ(isEnToRu) {
+            smMcqArea.innerHTML = ''; smMcqArea.classList.remove('hidden');
+            let correctAnswer = isEnToRu ? smCurrent.word.ru : smCurrent.word.en;
+            
+            let pool = currentDictionary.filter(w => w.en !== smCurrent.word.en);
+            let shuffledPool = shuffleArray(pool);
+            let options = [smCurrent.word];
+            for(let i=0; i<3 && i<shuffledPool.length; i++) options.push(shuffledPool[i]);
+            options = shuffleArray(options);
+            
+            options.forEach(opt => {
+                let text = isEnToRu ? opt.ru : opt.en;
+                let btn = document.createElement('button');
+                btn.className = 'mcq-btn'; btn.innerText = text;
+                btn.onclick = () => handleMCQ(text, correctAnswer, btn, !isEnToRu ? opt.en : null);
+                smMcqArea.appendChild(btn);
+            });
+        }
+
+        function handleMCQ(selected, correct, btnNode, englishTextToSpeak) {
+            let btns = smMcqArea.querySelectorAll('.mcq-btn');
+            btns.forEach(b => b.disabled = true);
+            
+            if (selected === correct) {
+                btnNode.classList.add('correct'); smStatus.innerText = "✅ Верно!"; smStatus.style.color = "#10b981";
+                if(englishTextToSpeak) speakEnglish(englishTextToSpeak);
+                smCurrent.level = 1; smartActive.push(smCurrent);
+                setTimeout(nextSmartTask, 800);
+            } else {
+                smErrorsTotal++; saveHardWord(smCurrent.word);
+                btnNode.classList.add('wrong');
+                btns.forEach(b => { if(b.innerText === correct) b.classList.add('correct'); });
+                smStatus.innerHTML = "❌ Ошибка. Запомните верный вариант."; smStatus.style.color = "#ef4444";
+                if(englishTextToSpeak) speakEnglish(englishTextToSpeak);
+                smCurrent.level = 0; smartActive.push(smCurrent); 
+                smNextBtn.classList.remove('hidden');
             }
-        });
+        }
+
+        function handleSmartWritten() {
+            let isEnToRu = smDirection === 'smart-en';
+            let correct = isEnToRu ? smCurrent.word.ru : smCurrent.word.en;
+            let userAns = smInput.value.toLowerCase().trim().replace(/\s+/g, ' ');
+            let targetAns = correct.toLowerCase().trim().replace(/\s+/g, ' ');
+
+            if (userAns === targetAns) {
+                smInput.classList.add('correct'); smStatus.innerText = "✅ Отлично! Слово усвоено."; smStatus.style.color = "#10b981";
+                if(!isEnToRu) speakEnglish(smCurrent.word.en);
+                smCurrent.level = 2; smMastered++; 
+                smCheckBtn.classList.add('hidden'); setTimeout(nextSmartTask, 1000);
+            } else {
+                smErrorsTotal++; saveHardWord(smCurrent.word);
+                smInput.classList.add('wrong');
+                smStatus.innerHTML = `❌ Ошибка.<br>Правильно: <br><span style="color:#60a5fa; font-weight:bold; font-size:1.2rem; margin-top:5px; display:inline-block;">${correct}</span>`;
+                smStatus.style.color = "#ef4444";
+                if(!isEnToRu) speakEnglish(smCurrent.word.en);
+                smCurrent.level = 0; smartActive.push(smCurrent); 
+                smCheckBtn.classList.add('hidden'); smNextBtn.classList.remove('hidden');
+            }
+        }
     });
 </script>
 </body>
